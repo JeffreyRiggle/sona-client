@@ -1,0 +1,13 @@
+<template>
+    <require from="../gitviewer/git-issue-viewer"></require>
+    <div if.bind="hasGitIssue" class="viewer-header">
+        <button click.delegate="showNotes()" class="viewer-notes-button">Show Notes</button>
+        <button click.delegate="hideNotes()" class="viewer-git-button">Show Git</button>
+    </div>
+    <div if.bind="showGit">
+        <git-issue-viewer issue.bind="gitIssue"></git-issue-viewer>
+    </div>
+    <div if.bind="!showGit">
+        ${incident.description}
+    </div>
+</template>

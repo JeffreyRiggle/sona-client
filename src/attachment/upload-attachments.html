@@ -1,0 +1,15 @@
+<template>
+    <ai-dialog>
+        <ai-dialog-header>${header}</ai-dialog-header>
+        <ai-dialog-body>
+            <input type="file" change.delegate="attachFile($event)">
+            <ul>
+                <li repeat.for="file of files">${file.displayName}</li>
+            </ul>
+        </ai-dialog-body>
+        <ai-dialog-footer>
+            <button click.delegate="controller.cancel()">Cancel</button>
+            <button click.delegate="controller.ok(files)">Upload</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>

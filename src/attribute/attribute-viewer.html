@@ -1,0 +1,14 @@
+<template>
+    <require from="./attribute-item"></require>
+    <div>Attributes</div>
+    <div>
+        <div>
+            <input type="text" value.bind="attributeName">
+            <input type="text" value.bind="attributeValue">
+            <button click.delegate="addAttribute()">Add</button>
+        </div>
+        <div class="attribute-container">
+            <attribute-item repeat.for="att of incident.attributes" model.bind="att"></attribute-item>
+        </div>
+    </div>
+</template>

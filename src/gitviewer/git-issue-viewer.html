@@ -1,0 +1,12 @@
+<template>
+    <h1>${id}</h1>
+    <div>
+        <span class="${closed ? 'state-closed' : 'state-open'}">${state}</span> <span class="reporter">${reporter}</span>
+    </div>
+    <div>
+        <div repeat.for="comment of comments">
+            <div class="comment-header"><h3>${comment.reporter} - <span>${comment.created}</span></h3></div>
+            <div class="comment-body">${comment.body}</div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,14 @@
+<template>
+    <require from="../attribute/attribute-viewer"></require>
+    <require from="../attachment/attachment-viewer"></require>
+    <require from="./viewing-area"></require>
+    <div>
+        <p>Incident <span>${incident.id}</span></p>
+        <p>Reporter <span>${incident.reporter}</span></p>
+        <p>State <span>${incident.state}</span></p>
+        <p>Description <span>${incident.description}</span></p>
+    </div>
+    <attribute-viewer incident.bind="incident"></attribute-viewer>
+    <attachment-viewer incident.bind="incident"></attachment-viewer>
+    <viewing-area incident.bind="incident" class="viewer"></viewing-area>
+</template>
