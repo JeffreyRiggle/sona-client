@@ -6,6 +6,6 @@ This is a client used to display incidents tracked in sona. Sona (which is not c
 Nodejs and npm should be installed.
 
 ### Building
-Install yarn `npm install yarn`
-download dependencies `yarn install`
-run dev server `yarn run dev`
+* Install yarn `npm install yarn`
+* download dependencies `yarn install`
+* run dev server `yarn run dev`
