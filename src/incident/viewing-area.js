@@ -1,20 +1,34 @@
 import {inject, bindable, customElement} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
 
 @customElement('viewing-area')
 @bindable('incident')
+@inject(EventAggregator)
 export class ViewingArea {
-    constructor() {
+    constructor(EventAggregator) {
         this.hasGitIssue = false;
         this.gitIssue = '';
         this.showGit = false;
+        this.eventAg = EventAggregator;
     }
 
     attached() {
-        if (!this.incident || !this.incident.attributes) {
+        this._updateGit(this.incident);
+        this.subscriber = this.eventAg.subscribe('incidentSelected', selected => {
+            this._updateGit(selected);
+        });
+    }
+
+    detached() {
+        this.subscriber.dispose();
+    }
+
+    _updateGit(incident) {
+        if (!incident || !incident.attributes) {
             return;
         }
 
-        this.incident.attributes.forEach(att => {
+        incident.attributes.forEach(att => {
             if (att.name === 'gitissue') {
                 this.hasGitIssue = true;
                 this.gitIssue = att.value;

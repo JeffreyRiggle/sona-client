@@ -1,0 +1,17 @@
+<template>
+    <require from="./incident-list-item"></require>
+    <ul class="incident-list">
+        <li class="incident-list-item-header">
+            <span class="incident-list-column-header">ID</span>
+            <span class="incident-list-column-header">State</span>
+            <span class="incident-list-column-header">Reporter</span>
+            <span class="incident-list-column-header">Description</span>
+        </li>
+        <incident-list-item
+                repeat.for="incident of incidentmanager.incidents"
+                incident.bind="incident" 
+                click.delegate="incidentClicked(incident)"
+                class="${incidentmanager.currentincident === incident ? 'selected-incident-list-item' : 'incident-list-item'}">
+        </incident-list-item>
+    </ul>
+</template>
