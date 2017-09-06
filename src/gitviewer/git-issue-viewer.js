@@ -11,33 +11,42 @@ export class GitIssueViewer {
         this.comments = [];
     }
 
+    attached() {
+        if (this.updating) {
+            return;
+        }
+
+        this._updateGitIssue(this.issue);
+    }
+
     issueChanged(newValue, oldValue) {
         if (newValue === oldValue) {
             return;
         }
 
+        this.updating = true;
         this._cleanUp();
-        this._updateGitIssue(newValue);
+        this._updateGitIssue(newValue, () => { this.updating = false; });
     }
 
-    _updateGitIssue(issue) {
+    _updateGitIssue(issue, callback) {
         this.httpClient.createRequest(issue)
-        .withHeader('Access-Control-Allow-Origin', '*')
-        .asGet()
-        .send()
-        .then(data => {
-            var response = JSON.parse(data.response);
-            this.closed = response.closed_at;
-            this.id = response.title;
-            this.state = response.state;
-            this.reporter = response.user.login;
+            .withHeader('Access-Control-Allow-Origin', '*')
+            .asGet()
+            .send()
+            .then(data => {
+                var response = JSON.parse(data.response);
+                this.closed = response.closed_at;
+                this.id = response.title;
+                this.state = response.state;
+                this.reporter = response.user.login;
 
-            this.comments.push(new GitComment(response.body, response.user.login, new Date(response.created_at).toString()));
-            this._getComments(issue + '/comments');
-        });
+                this.comments.push(new GitComment(response.body, response.user.login, new Date(response.created_at).toString()));
+                this._getComments(issue + '/comments', callback);
+            });
     }
 
-    _getComments(url) {
+    _getComments(url, callback) {
         this.httpClient.createRequest(url)
             .withHeader('Access-Control-Allow-Origin', '*')
             .asGet()
@@ -48,6 +57,10 @@ export class GitIssueViewer {
                 response.forEach(i => {
                     this.comments.push(new GitComment(i.body, i.user.login, new Date(i.created_at).toString()));
                 });
+
+                if (callback) {
+                    callback();
+                }
             });
     }
 
