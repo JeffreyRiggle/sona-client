@@ -12,7 +12,25 @@ export class GitIssueViewer {
     }
 
     attached() {
-        this.httpClient.createRequest(this.issue)
+        if (this.updating) {
+            return;
+        }
+
+        this._updateGitIssue(this.issue);
+    }
+
+    issueChanged(newValue, oldValue) {
+        if (newValue === oldValue) {
+            return;
+        }
+
+        this.updating = true;
+        this._cleanUp();
+        this._updateGitIssue(newValue, () => { this.updating = false; });
+    }
+
+    _updateGitIssue(issue, callback) {
+        this.httpClient.createRequest(issue)
             .withHeader('Access-Control-Allow-Origin', '*')
             .asGet()
             .send()
@@ -24,11 +42,11 @@ export class GitIssueViewer {
                 this.reporter = response.user.login;
 
                 this.comments.push(new GitComment(response.body, response.user.login, new Date(response.created_at).toString()));
-                this.getComments(this.issue + '/comments');
+                this._getComments(issue + '/comments', callback);
             });
     }
 
-    getComments(url) {
+    _getComments(url, callback) {
         this.httpClient.createRequest(url)
             .withHeader('Access-Control-Allow-Origin', '*')
             .asGet()
@@ -39,10 +57,18 @@ export class GitIssueViewer {
                 response.forEach(i => {
                     this.comments.push(new GitComment(i.body, i.user.login, new Date(i.created_at).toString()));
                 });
+
+                if (callback) {
+                    callback();
+                }
             });
     }
 
     detached() {
+        this._cleanUp();
+    }
+
+    _cleanUp() {
         this.comments = [];
     }
 }
