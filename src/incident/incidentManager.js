@@ -24,4 +24,13 @@ export class IncidentManager {
             }
         });
     }
+
+    createIncident(incident) {
+        incident.id = this.incidents.length + 1;
+        this.incidents.push(incident);
+    }
+
+    getIncidents(filter) {
+        
+    }
 }

@@ -1,0 +1,23 @@
+<template>
+    <ai-dialog>
+        <ai-dialog-header>${header}</ai-dialog-header>
+        <ai-dialog-body>
+            <div class="create-item-row">
+                <span class="create-item-column">Reporter</span>
+                <input class="create-item-column" type="text" value.bind="incident.reporter">
+            </div>
+            <div class="create-item-row">
+                <span class="create-item-column">State</span>
+                <input class="create-item-column" type="text" value.bind="incident.state">
+            </div>
+            <div class="create-item-row">
+                <span class="create-item-column">Description</span>
+                <input class="create-item-column" type="text" value.bind="incident.description">
+            </div>
+        </ai-dialog-body>
+        <ai-dialog-footer>
+            <button click.delegate="controller.cancel()">Cancel</button>
+            <button click.delegate="controller.ok(incident)">Create</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>

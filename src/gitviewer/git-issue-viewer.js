@@ -24,6 +24,12 @@ export class GitIssueViewer {
             return;
         }
 
+        if (!newValue) {
+            this.id = 'Unable to find content';
+            this.comments = [];
+            return;
+        }
+
         this.updating = true;
         this._cleanUp();
         this._updateGitIssue(newValue, () => { this.updating = false; });
