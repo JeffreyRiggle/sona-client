@@ -10,13 +10,13 @@ export class IncidentSearch {
 
     constructor(dialogService) {
         this.dialogService = dialogService;
-        let searchID = '';
-        let searchState = '';
-        let searchReporter = '';
+        this.searchID = '';
+        this.searchState = '';
+        this.searchReporter = '';
     }
 
     preformSearch() {
-        alert('Searching for ID ' + this.searchID + ' State ' + this.searchState + ' reporter ' + this.searchReporter);
+        this.incidentmanager.getIncidents();
     }
 
     createIncident() {

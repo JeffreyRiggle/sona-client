@@ -29,4 +29,8 @@ export class IncidentManager {
         incident.id = this.incidents.length + 1;
         this.incidents.push(incident);
     }
+
+    getIncidents(filter) {
+        
+    }
 }
