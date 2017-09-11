@@ -79,6 +79,10 @@ module.exports = {
       '/repos' : {
         target: 'https://api.github.com/',
         changeOrigin: true
+      },
+      '/sona' : {
+        target: 'http://localhost:8080/',
+        changeOrigin: true
       }
     }
   },
