@@ -2,17 +2,17 @@
     <ai-dialog>
         <ai-dialog-header>${header}</ai-dialog-header>
         <ai-dialog-body>
-            <div>
-                <span>Reporter</span>
-                <input type="text" value.bind="incident.reporter">
+            <div class="create-item-row">
+                <span class="create-item-column">Reporter</span>
+                <input class="create-item-column" type="text" value.bind="incident.reporter">
             </div>
-            <div>
-                <span>State</span>
-                <input type="text" value.bind="incident.state">
+            <div class="create-item-row">
+                <span class="create-item-column">State</span>
+                <input class="create-item-column" type="text" value.bind="incident.state">
             </div>
-            <div>
-                <span>Description</span>
-                <input type="text" value.bind="incident.description">
+            <div class="create-item-row">
+                <span class="create-item-column">Description</span>
+                <input class="create-item-column" type="text" value.bind="incident.description">
             </div>
         </ai-dialog-body>
         <ai-dialog-footer>
