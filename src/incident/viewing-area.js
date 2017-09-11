@@ -24,6 +24,10 @@ export class ViewingArea {
     }
 
     _updateGit(incident) {
+        this.hasGitIssue = false;
+        this.showGit = false;
+        this.gitIssue = undefined;
+
         if (!incident || !incident.attributes) {
             return;
         }
