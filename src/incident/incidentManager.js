@@ -76,8 +76,24 @@ export class IncidentManager {
     }
 
     createIncident(incident) {
-        incident.id = this.incidents.length + 1;
-        this.incidents.push(incident);
+        this.httpClient.createRequest('/sona/v1/create')
+        .asPost()
+        .withContent(
+            {
+                description: incident.description,
+                reporter: incident.reporter,
+                state: incident.state
+            }
+        )
+        .send()
+        .then(data => {
+            let incident = this._convertIncident(JSON.parse(data.response));
+            this.incidents.push(incident);
+            this.currentincident = incident;
+        })
+        .catch(error => {
+            alert('unable to create incident');
+        });
     }
 
     getIncidents(filter) {
