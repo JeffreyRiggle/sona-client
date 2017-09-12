@@ -1,6 +1,5 @@
 export class Attachment {
-    constructor(displayName, path) {
+    constructor(displayName) {
         this.displayName = displayName;
-        this.path = path;
     }
 }

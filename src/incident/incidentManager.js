@@ -58,7 +58,7 @@ export class IncidentManager {
                 }
 
                 attached.forEach(attach => {
-                    inc.addAttachment(new Attachment(attach.filename, ''));
+                    inc.addAttachment(new Attachment(attach.filename));
                 });
             });
 

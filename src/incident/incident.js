@@ -31,8 +31,23 @@ export class Incident {
         this._updateIncident();
     }
 
-    addAttachment(attachment) {
-        this.attachments.push(attachment);
+    addAttachment(attachment, rawData) {
+        if (!rawData) {
+            this.attachments.push(attachment);
+            return;
+        }
+
+        this.httpClient.createRequest('/sona/v1/' + this.id + '/attachment')
+        .asPost()
+        .withContent(rawData)
+        .send()
+        .then(data => {
+            this.attachments.push(attachment);
+            alert('Attachment uploaded');
+        })
+        .catch(error => {
+            alert('Unable to upload attachment');
+        });
     }
 
     removeAttachment(attachment) {
