@@ -103,6 +103,7 @@ export class IncidentManager {
         .then(data => {
             let incs = JSON.parse(data.response);
 
+            this.incidents = [];
             incs.forEach(incident => {
                 this.incidents.push(this._convertIncident(incident));
             });
