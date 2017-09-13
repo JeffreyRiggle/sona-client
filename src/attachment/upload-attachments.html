@@ -4,7 +4,7 @@
         <ai-dialog-body>
             <input type="file" change.delegate="attachFile($event)">
             <ul>
-                <li repeat.for="file of files">${file.displayName}</li>
+                <li repeat.for="file of files">${file.name}</li>
             </ul>
         </ai-dialog-body>
         <ai-dialog-footer>

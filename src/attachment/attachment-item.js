@@ -12,4 +12,9 @@ export class AttachmentItem {
         let e = new CustomEvent('removed', { detail: this.model });
         this.element.dispatchEvent(e);
     }
+
+    download() {
+        let e = new CustomEvent('download', {detail: this.model });
+        this.element.dispatchEvent(e);
+    }
 }

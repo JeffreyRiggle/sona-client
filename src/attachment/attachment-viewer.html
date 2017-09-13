@@ -2,7 +2,12 @@
     <require from="./attachment-item"></require>
     <div>Attachments</div>
     <div class="attachment-container">
-        <attachment-item repeat.for="attachment of incident.attachments" model.bind="attachment" removed.trigger="removeAttachment($event)"></attachment-item>
+        <attachment-item 
+            repeat.for="attachment of incident.attachments" 
+            model.bind="attachment" 
+            removed.trigger="removeAttachment($event)" 
+            download.trigger="downloadAttachment($event)">
+        </attachment-item>
         <Button click.delegate="addAttachments()">Upload Attachments</Button>
     </div>
 <template>

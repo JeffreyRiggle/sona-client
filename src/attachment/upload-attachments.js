@@ -1,6 +1,5 @@
 import {inject} from 'aurelia-framework';
 import {DialogController} from 'aurelia-dialog';
-import {Attachment} from './attachment';
 
 @inject(DialogController)
 export class UploadAttachments {
@@ -21,9 +20,7 @@ export class UploadAttachments {
         var addedFiles = event.target.files;
 
         for (var i = 0; i < addedFiles.length; i++) {
-            var file = addedFiles[i];
-            this.files.push(new Attachment(file.name, ''));
-            console.log(file);
+            this.files.push(addedFiles[i]);
         }
     }
 }

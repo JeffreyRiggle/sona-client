@@ -1,6 +1,7 @@
 import {inject, bindable, customElement} from 'aurelia-framework';
 import {DialogService} from 'aurelia-dialog';
 import {UploadAttachments} from './upload-attachments';
+import {Attachment} from './attachment';
 
 @bindable('incident')
 @customElement('attachment-viewer')
@@ -26,11 +27,21 @@ export class AttachmentViewer {
 
     uploadFiles(files) {
         files.forEach(file => {
-            this.incident.addAttachment(file);
+            this._uploadAttachment(file);
         });
     }
 
+    _uploadAttachment(file) {
+        var data = new FormData();
+        data.append("uploadfile", file);
+        this.incident.addAttachment(new Attachment(file.name), data);
+    }
+    
     removeAttachment(event) {
         this.incident.removeAttachment(event.detail);
+    }
+
+    downloadAttachment(event) {
+        this.incident.downloadAttachment(event.detail);
     }
 }
