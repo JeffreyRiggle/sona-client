@@ -8,7 +8,7 @@
             <button click.delegate="addAttribute()">Add</button>
         </div>
         <div class="attribute-container">
-            <attribute-item repeat.for="att of incident.attributes" model.bind="att"></attribute-item>
+            <attribute-item repeat.for="att of incident.attributes" model.bind="att" removed.trigger="removeAttribute($event)"></attribute-item>
         </div>
     </div>
 </template>

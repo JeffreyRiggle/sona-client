@@ -19,7 +19,7 @@ export class AttributeViewer {
         this.attributeValue = '';
     }
 
-    removeAttribute(att) {
-        this.incident.removeAttribute(att);
+    removeAttribute(event) {
+        this.incident.removeAttribute(event.detail);
     }
 }

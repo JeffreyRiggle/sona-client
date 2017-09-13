@@ -8,10 +8,32 @@
     padding: 5px;
 }
 
+#remove {
+    position: relative;
+    right: -30px;
+    border: none;
+    height: 22px;
+    background: linear-gradient(to bottom, #ff3019 0%,#cf0404 100%);
+}
+
 .container {
     padding: 0px;
+    display: inline-block;
 }
 
 .attribute-container {
     margin: 20px;
+}
+
+.remove-container {
+    display: inline;
+    width: 20px;
+    position: absolute;
+    overflow: hidden;
+    margin: 0px;
+}
+
+.remove-container:hover #remove {
+    transition: 1s;
+    right: 0;
 }
