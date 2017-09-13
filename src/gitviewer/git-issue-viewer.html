@@ -1,7 +1,9 @@
 <template>
     <h1>${id}</h1>
     <div>
-        <span class="${closed ? 'state-closed' : 'state-open'}">${state}</span> <span class="reporter">${reporter}</span>
+        <span class="${closed ? 'state-closed' : 'state-open'}">${state}</span>
+        <span class="reporter">${reporter}</span>
+        <button class="view-git" click.delegate="viewInGit()">View in GitHub</button>
     </div>
     <div>
         <div repeat.for="comment of comments">
