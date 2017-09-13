@@ -57,6 +57,10 @@ export class Incident {
         }
     }
 
+    downloadAttachment(attachment) {
+        window.open('/sona/v1/' + this.id + '/attachment/' + attachment.displayName);
+    }
+
     _updateIncident() {
         this.httpClient.createRequest('/sona/v1/' + this.id + '/update')
         .asPut()

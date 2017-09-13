@@ -40,4 +40,8 @@ export class AttachmentViewer {
     removeAttachment(event) {
         this.incident.removeAttachment(event.detail);
     }
+
+    downloadAttachment(event) {
+        this.incident.downloadAttachment(event.detail);
+    }
 }
