@@ -62,6 +62,8 @@ export class IncidentManager {
                 attached.forEach(attach => {
                     inc.addAttachment(new Attachment(attach.filename));
                 });
+            }).catch(error => {
+                console.log('unable to find attachments');
             });
 
         return inc;
