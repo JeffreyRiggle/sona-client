@@ -1,15 +1,17 @@
 import {HttpClient, Headers} from 'aurelia-http-client';
 import {Attribute} from '../attribute/attribute';
 import {Attachment} from '../attachment/attachment';
+import {EventAggregator} from 'aurelia-event-aggregator';
 
 export class Incident {
-    constructor(id, reporter, state, description) {
+    constructor(id, reporter, state, description, attributes) {
+        this.eventAggregator = new EventAggregator();
         this.id = id;
         this.reporter = reporter;
         this.state = state;
         this.description = description;
         this.httpClient = new HttpClient();
-        this.attributes = [];
+        this.attributes = attributes;
         this.attachments = [];
     }
 
@@ -74,6 +76,7 @@ export class Incident {
         .send()
         .then(data => {
             console.log('incident updated.');
+            this.eventAggregator.publish('incidentupdated', this);
         })
         .catch(error => {
             console.log('Unable to update incident');
