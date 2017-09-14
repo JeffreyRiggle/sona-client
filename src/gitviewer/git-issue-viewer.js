@@ -70,6 +70,10 @@ export class GitIssueViewer {
             });
     }
 
+    viewInGit() {
+        window.open('https://github.com/' + this.issue.substring(7, this.issue.length));
+    }
+    
     detached() {
         this._cleanUp();
     }

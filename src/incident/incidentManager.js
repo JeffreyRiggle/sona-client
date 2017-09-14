@@ -3,6 +3,7 @@ import {EventAggregator} from 'aurelia-event-aggregator';
 import {HttpClient, Headers} from 'aurelia-http-client';
 import {Incident} from './incident';
 import {Attachment} from '../attachment/attachment';
+import {Attribute} from '../attribute/attribute';
 
 @inject(EventAggregator)
 export class IncidentManager {
@@ -31,21 +32,22 @@ export class IncidentManager {
                 });
 
                 if (incs.length > 0) {
-                    this.currentincident = this.incidents[0];
+                    this._updateCurrentIncident(this.incidents[0]);
                 }
             });
     }
 
     _convertIncident(incident) {
-        let inc = new Incident(incident.id, incident.reporter, incident.state, incident.description);
-        
+        let attribs = [];
         if (incident.attributes) {
             for (var prop in incident.attributes) {
                 if (incident.attributes.hasOwnProperty(prop)) {
-                    inc.addAttribute(prop, incident.attributes[prop]);
+                    attribs.push(new Attribute(prop, incident.attributes[prop]));
                 }
             }
         }
+
+        let inc = new Incident(incident.id, incident.reporter, incident.state, incident.description, attribs);
 
         this.httpClient.createRequest('/sona/v1/' + incident.id + '/attachments')
             .asGet()
@@ -68,8 +70,7 @@ export class IncidentManager {
     setSelected(id) {
         this.incidents.forEach(i => {
             if (i.id === id) {
-                this.currentincident = i;
-                this.eventAg.publish('incidentSelected', i);
+                this._updateCurrentIncident(i);
                 return;
             }
         });
@@ -89,7 +90,7 @@ export class IncidentManager {
         .then(data => {
             let incident = this._convertIncident(JSON.parse(data.response));
             this.incidents.push(incident);
-            this.currentincident = incident;
+            this._updateCurrentIncident(incident);
         })
         .catch(error => {
             alert('unable to create incident');
@@ -109,8 +110,13 @@ export class IncidentManager {
             });
 
             if (incs.length > 0) {
-                this.currentincident = this.incidents[0];
+                this._updateCurrentIncident(this.incidents[0]);
             }
         });
+    }
+
+    _updateCurrentIncident(incident) {
+        this.currentincident = incident;
+        this.eventAg.publish('incidentSelected', incident);
     }
 }

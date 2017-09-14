@@ -32,13 +32,23 @@ export class ViewingArea {
             return;
         }
 
+        let att = this._findGitAttribute(incident);
+        if (att) {
+            this.hasGitIssue = true;
+            this.gitIssue = att;
+            this.showGit = true;
+        }
+    }
+
+    _findGitAttribute(incident) {
+        let retVal = undefined;
         incident.attributes.forEach(att => {
             if (att.name === 'gitissue') {
-                this.hasGitIssue = true;
-                this.gitIssue = att.value;
-                this.showGit = true;
+                retVal = att.value;
             }
         });
+
+        return retVal;
     }
 
     showNotes() {
