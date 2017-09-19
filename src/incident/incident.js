@@ -44,6 +44,12 @@ export class Incident {
         .withContent(rawData)
         .send()
         .then(data => {
+            let attached = JSON.parse(data.response);
+
+            if (attached) {
+                attachment.date = new Date(attached.time);
+            }
+
             this.attachments.push(attachment);
             alert('Attachment uploaded');
         })
