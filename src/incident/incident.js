@@ -54,9 +54,21 @@ export class Incident {
 
     removeAttachment(attachment) {
         let index = this.attachments.indexOf(attachment);
-        if (index !== -1) {
-            this.attachments.splice(index, 1);
+        if (index === -1) {
+            return;
         }
+
+        this.attachments.splice(index, 1);
+
+        this.httpClient.createRequest('/sona/v1/' + this.id + '/attachment/' + attachment.displayName)
+        .asDelete()
+        .send()
+        .then(data => {
+            alert('Attachment removed');
+        })
+        .catch(error => {
+            alert('Unable to remove attachment');
+        });
     }
 
     downloadAttachment(attachment) {
