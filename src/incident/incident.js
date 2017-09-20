@@ -44,6 +44,12 @@ export class Incident {
         .withContent(rawData)
         .send()
         .then(data => {
+            let attached = JSON.parse(data.response);
+
+            if (attached) {
+                attachment.date = new Date(attached.time);
+            }
+
             this.attachments.push(attachment);
             alert('Attachment uploaded');
         })
@@ -54,9 +60,21 @@ export class Incident {
 
     removeAttachment(attachment) {
         let index = this.attachments.indexOf(attachment);
-        if (index !== -1) {
-            this.attachments.splice(index, 1);
+        if (index === -1) {
+            return;
         }
+
+        this.attachments.splice(index, 1);
+
+        this.httpClient.createRequest('/sona/v1/' + this.id + '/attachment/' + attachment.displayName)
+        .asDelete()
+        .send()
+        .then(data => {
+            alert('Attachment removed');
+        })
+        .catch(error => {
+            alert('Unable to remove attachment');
+        });
     }
 
     downloadAttachment(attachment) {
