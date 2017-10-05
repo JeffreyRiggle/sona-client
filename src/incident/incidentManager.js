@@ -102,6 +102,7 @@ export class IncidentManager {
     getIncidents(filter) {
         this.httpClient.createRequest('/sona/v1/incidents')
         .asGet()
+        .withParams({filter: JSON.stringify(filter)})
         .send()
         .then(data => {
             let incs = JSON.parse(data.response);
