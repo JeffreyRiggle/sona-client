@@ -4,6 +4,7 @@ import {HttpClient, Headers} from 'aurelia-http-client';
 import {Incident} from './incident';
 import {Attachment} from '../attachment/attachment';
 import {Attribute} from '../attribute/attribute';
+import notificationManager from '../notifications/sharednotificationmanager';
 
 @inject(EventAggregator)
 export class IncidentManager {
@@ -34,6 +35,8 @@ export class IncidentManager {
                 if (incs.length > 0) {
                     this._updateCurrentIncident(this.incidents[0]);
                 }
+            }).catch(err => {
+                notificationManager.addError('Unable to get incidents');
             });
     }
 
@@ -63,7 +66,7 @@ export class IncidentManager {
                     inc.addAttachment(new Attachment(attach.filename, attach.time));
                 });
             }).catch(error => {
-                console.log('unable to find attachments');
+                notificationManager.addError('Unable to get attachments for ' + incidnet.id);
             });
 
         return inc;
@@ -93,9 +96,10 @@ export class IncidentManager {
             let incident = this._convertIncident(JSON.parse(data.response));
             this.incidents.push(incident);
             this._updateCurrentIncident(incident);
+            notificationManager.addNotification('Incident ' + incident.id + ' created');
         })
         .catch(error => {
-            alert('unable to create incident');
+            notificationManager.addError('Unable to create incident.');
         });
     }
 
@@ -115,6 +119,8 @@ export class IncidentManager {
             if (incs.length > 0) {
                 this._updateCurrentIncident(this.incidents[0]);
             }
+        }).catch(error => {
+            notificationManager.addError('Unable to get incidents');
         });
     }
 

@@ -1,0 +1,6 @@
+<template>
+    <div id="notification-area" class="${show ? 'show-notification' : 'hide-notification'}">
+        <button click.delegate="closeNotification()" class="dismiss-button">x</button>
+        <h1 class="${currentNotification.error ? 'error-notification' : 'normal-notification'}">${currentNotification.message}</h1>
+    </div>
+</template>

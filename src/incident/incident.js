@@ -2,6 +2,7 @@ import {HttpClient, Headers} from 'aurelia-http-client';
 import {Attribute} from '../attribute/attribute';
 import {Attachment} from '../attachment/attachment';
 import {EventAggregator} from 'aurelia-event-aggregator';
+import notificationManager from '../notifications/sharednotificationmanager';
 
 export class Incident {
     constructor(id, reporter, state, description, attributes) {
@@ -51,10 +52,10 @@ export class Incident {
             }
 
             this.attachments.push(attachment);
-            alert('Attachment uploaded');
+            notificationManager.addNotification('Added succesfully attached ' + attachment.displayName);
         })
         .catch(error => {
-            alert('Unable to upload attachment');
+            notificationManager.addError('Unable to attach ' + attachment.displayName);
         });
     }
 
@@ -70,10 +71,10 @@ export class Incident {
         .asDelete()
         .send()
         .then(data => {
-            alert('Attachment removed');
+            notificationManager.addNotification('Removed attachment ' + attachment.displayName);
         })
         .catch(error => {
-            alert('Unable to remove attachment');
+            notificationManager.addError('Removed attachment ' + attachment.displayName);
         });
     }
 
@@ -97,7 +98,7 @@ export class Incident {
             this.eventAggregator.publish('incidentupdated', this);
         })
         .catch(error => {
-            console.log('Unable to update incident');
+            notificationManager.addError('Unable to update incident ' + this.id);
         });
     }
 
