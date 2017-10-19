@@ -4,7 +4,6 @@ import {inject, bindable, customElement} from 'aurelia-framework';
 @bindable('notification')
 export class NotificationItem {
     constructor() { 
-        this.show = true;
     }
 
     closeNotification() {
