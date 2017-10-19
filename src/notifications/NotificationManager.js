@@ -9,21 +9,25 @@ export class NotificationManager extends EventEmitter {
     }
 
     addNotification(message) {
-        var notification = new Notification(message, this.nextId++, false);
-        this.notifications[notification.id] = notification;
-
-        this.emit('notificationAdded', notification);
+        this._addNotification(new Notification(message, this.nextId++, false));
     }
 
     addError(message) {
-        var notification = new Notification(message, this.nextId++, true);
-        this.notifications[notification.id] = notification;
+        this._addNotification(new Notification(message, this.nextId++, true));
+    }
 
+    _addNotification(notification) {
+        this.notifications[notification.id] = notification;
+        
+        notification.on('dismissed', () => {
+            this.removeNotification(notification.id);
+        });
+        
         this.emit('notificationAdded', notification);
     }
 
     removeNotification(id) {
-        var notification = this.notification[id];
+        var notification = this.notifications[id];
         this.emit('notificationRemoved', notification);
 
         delete this.notifications[id];

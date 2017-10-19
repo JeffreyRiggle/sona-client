@@ -1,0 +1,6 @@
+<template>
+    <div class="${notification.error ? 'error-notification' : 'normal-notification'}">
+        <button click.delegate="closeNotification()" class="dismiss-button">x</button>
+        <span>${notification.message}</span>
+    </div>
+</template>

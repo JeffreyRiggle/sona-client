@@ -5,26 +5,27 @@ import './notification.less';
 @customElement('notification-area')
 export class NotificationArea {
     constructor() {
-        this.currentNotification = undefined;
+        this.notifications = [];
         this.show = false;
 
         notificationManager.on('notificationAdded', notification => {
             this._notificationAdded(notification);
         });
+
+        notificationManager.on('notificationRemoved', notification => {
+            this._notificationRemoved(notification);
+        });
     }
 
     _notificationAdded(notification) {
-        this.currentNotification = notification;
-        this.show = true;
+        this.notifications.push(notification);
     }
 
-    closeNotification() {
-        if (!this.currentNotification) {
-            return;
+    _notificationRemoved(notification) {
+        let index = this.notifications.indexOf(notification);
+        
+        if (index !== -1) {
+            this.notifications.splice(index, 1);
         }
-
-        this.show = false;
-        notificationManager.removeNotification(this.currentNotification.id);
-        this.currentNotification = undefined;
     }
 }
