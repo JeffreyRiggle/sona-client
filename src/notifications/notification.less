@@ -39,10 +39,25 @@
 .notification {
     padding-bottom: 25px;
     margin: 10px;
+    animation-duration: 2s;
+    animation-name: slidein;
     -webkit-box-shadow: 0 0 5px black;
     -moz-box-shadow: 0 0 5px black;
     box-shadow: 0 0 10px black;
 }
+
+@keyframes slidein {
+    from {
+        opacity: 0;
+        margin-top: -25%;
+    }
+
+    to {
+        opacity: 1;
+        margin-top: 10px;
+    }
+}
+
 .normal-notification {
     .notification;
     background: lightgreen;
