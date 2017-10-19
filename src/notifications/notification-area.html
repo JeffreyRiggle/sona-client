@@ -1,0 +1,6 @@
+<template>
+    <require from="./notification-item"></require>
+    <div id="notification-area" class="${notifications.length > 0 ? 'show-notification' : 'hide-notification'}">
+        <notification-item repeat.for="notification of notifications" notification.bind="notification"></notification-item>
+    </div>
+</template>
