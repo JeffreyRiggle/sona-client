@@ -52,7 +52,7 @@ export class Incident {
             }
 
             this.attachments.push(attachment);
-            notificationManager.addNotification('Added succesfully attached ' + attachment.displayName);
+            notificationManager.addNotification('Succesfully attached ' + attachment.displayName);
         })
         .catch(error => {
             notificationManager.addError('Unable to attach ' + attachment.displayName);
@@ -74,7 +74,7 @@ export class Incident {
             notificationManager.addNotification('Removed attachment ' + attachment.displayName);
         })
         .catch(error => {
-            notificationManager.addError('Removed attachment ' + attachment.displayName);
+            notificationManager.addError('Unable to remove attachment ' + attachment.displayName);
         });
     }
 

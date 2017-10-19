@@ -66,7 +66,7 @@ export class IncidentManager {
                     inc.addAttachment(new Attachment(attach.filename, attach.time));
                 });
             }).catch(error => {
-                notificationManager.addError('Unable to get attachments for ' + incidnet.id);
+                notificationManager.addError('Unable to get attachments for ' + incident.id);
             });
 
         return inc;
@@ -120,7 +120,7 @@ export class IncidentManager {
                 this._updateCurrentIncident(this.incidents[0]);
             }
         }).catch(error => {
-            notificationManager.addError('Unable to get incidents');
+            notificationManager.addError('Unable to get incidents.');
         });
     }
 
