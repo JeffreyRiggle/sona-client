@@ -2,18 +2,20 @@ import { EventEmitter } from '../common/EventEmitter';
 import { Notification } from './notification';
 
 export class NotificationManager extends EventEmitter {
-    constructor() {
+    constructor(ttl) {
         super();
+
+        this.ttl = ttl;
         this.notifications = {};
         this.nextId = 0;
     }
 
     addNotification(message) {
-        this._addNotification(new Notification(message, this.nextId++, false));
+        this._addNotification(new Notification(message, this.nextId++, false, this.ttl));
     }
 
     addError(message) {
-        this._addNotification(new Notification(message, this.nextId++, true));
+        this._addNotification(new Notification(message, this.nextId++, true, this.ttl));
     }
 
     _addNotification(notification) {
