@@ -5,10 +5,10 @@
     <require from="./notifications/notification-area"></require>
     <notification-area></notification-area>
     <div class="content-container">
-        <div class="content-area">
+        <div class="content-area" id="listview">
             <incident-search incidentmanager.bind="incidentmanager"></incident-search>
-            <incident-list-view incidentmanager.bind="incidentmanager">
-        </incident-list-view></div>
-        <div class="content-area"><incident-viewer incident.bind="incidentmanager.currentincident"></incident-viewer></div>
+            <incident-list-view incidentmanager.bind="incidentmanager"></incident-list-view>
+        </div>
+        <div class="content-area" id="viewer"><incident-viewer incident.bind="incidentmanager.currentincident"></incident-viewer></div>
     </div>
 </template>
