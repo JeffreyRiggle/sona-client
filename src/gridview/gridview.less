@@ -1,33 +1,28 @@
-.listview {
-    margin-left: 0px;
-    padding-left: 0;
-    list-style-type: none;
+.gridview {
     width: 100%;
-    display: table;
+    border-collapse:collapse;
 }
 
-.listview-item-base {
-    display:block; 
+.gridview-item-base {
     text-decoration:none; 
     color:#000000; 
     line-height:30px;
     border-bottom-style:solid; 
     border-bottom-width:1px; 
-    border-bottom-color:#CCCCCC; 
-    padding-left:10px;
+    border-bottom-color:#CCCCCC;
 }
 
-.listview-item-header {
-    .listview-item-base;
+.gridview-item-header {
+    .gridview-item-base;
     background-color:#D5D5D5;
 }
 
-.listview-item {
-    .listview-item-base;
+.gridview-item {
+    .gridview-item-base;
     background-color:#FFFFFF;
 }
 
-.listview-item:hover {
+.gridview-item:hover {
     color:#FFFFFF; 
     background: rgba(147,206,222,1);
     background: -moz-linear-gradient(left, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
@@ -39,19 +34,17 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );
 }
 
-.listview-column {
-    width: 22%;
-    padding: 5px;
-    display: inline-flex;
+.gridview-column {
+    flex: 1 auto;
     text-align: center;
 }
 
-.listview-column-header {
-    .listview-column;
+.gridview-column-header {
+    .gridview-column;
 }
 
-.selected-listview-item {
-    .listview-item-base;
+.selected-gridview-item {
+    .gridview-item-base;
     color:#FFFFFF; 
     background: rgba(149,182,222,1);
     background: -moz-linear-gradient(left, rgba(149,182,222,1) 0%, rgba(116,171,207,1) 41%, rgba(73,135,189,1) 100%);

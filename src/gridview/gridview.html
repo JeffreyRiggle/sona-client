@@ -1,0 +1,16 @@
+<template>
+    <table class="gridview">
+        <thead>
+            <tr class="gridview-item-header">
+                <th class="gridview-column-header" repeat.for="column of options.columns">${column.displayName}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of items"
+                click.delegate="itemClicked(item)"
+                class="${selected === item ? 'selected-gridview-item' : 'gridview-item'}">
+                <td class="gridview-column" repeat.for="column of options.columns">${item[column.property]}</td>
+            </tr>
+        </tbody>
+    </table>
+</template>

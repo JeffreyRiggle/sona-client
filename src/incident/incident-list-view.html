@@ -1,7 +1,8 @@
 <template>
-    <require from="../listview/listview"></require>
-    <listview 
+    <require from="../gridview/gridview"></require>
+    <gridview 
         options.bind="listOptions" 
         items.bind="incidentmanager.incidents"
-        selectedchanged.trigger="updateSelection($event)"></listview>
+        selected.bind="incidentmanager.currentincident"
+        selectedchanged.trigger="updateSelection($event)"></gridview>
 </template>

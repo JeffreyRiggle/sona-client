@@ -1,13 +1,15 @@
 import {inject, bindable, customElement} from 'aurelia-framework';
-import './listview.less';
+import './gridview.less';
 
 @bindable('options')
 @bindable('items')
-@customElement('listview')
+@bindable('selected')
+@customElement('gridview')
 @inject(Element)
-export class ListView {
+export class GridView {
     constructor(element) {
         this.element = element;
+        this.selected = {};
     }
 
     itemClicked(item) {
