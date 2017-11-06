@@ -2,7 +2,9 @@
     <table class="gridview">
         <thead>
             <tr class="gridview-item-header">
-                <th class="gridview-column-header" repeat.for="column of options.columns">${column.displayName}</th>
+                <th class="gridview-column-header" 
+                    repeat.for="column of options.columns"
+                    click.delegate="changeSort(column)">${column.displayName}<i if.bind="sortProperty === column.property" class="arrow ${column.direction}"></i></th>
             </tr>
         </thead>
         <tbody>

@@ -10,6 +10,7 @@
     border-bottom-style:solid; 
     border-bottom-width:1px; 
     border-bottom-color:#CCCCCC;
+    cursor:default;
 }
 
 .gridview-item-header {
@@ -54,4 +55,22 @@
     background: -ms-linear-gradient(left, rgba(149,182,222,1) 0%, rgba(116,171,207,1) 41%, rgba(73,135,189,1) 100%);
     background: linear-gradient(to right, rgba(149,182,222,1) 0%, rgba(116,171,207,1) 41%, rgba(73,135,189,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#95b6de', endColorstr='#4987bd', GradientType=1 );
+}
+
+i {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin-left: 10px;
+}
+
+.asc {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.dsc {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
 }
