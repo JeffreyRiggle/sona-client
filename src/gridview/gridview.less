@@ -1,0 +1,117 @@
+.gridview {
+    width: 100%;
+    border-collapse:collapse;
+}
+
+table.gridview th,
+table.gridview td,
+table.gridview tr,
+table.gridview thead,
+table.gridview tbody { display: block; }
+
+table.gridview thead tr {
+    width: 100%;
+    width: -webkit-calc(100%);
+    width:    -moz-calc(100%);
+    width:         calc(100%);
+}
+
+table.gridview tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+table.gridview tbody {
+    max-height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+table.gridview tbody td,
+table.gridview thead th {
+    width: 19%;
+    float: left;
+}
+
+thead tr th { 
+    height: 30px;
+    line-height: 30px;
+}
+
+.gridview-item-base {
+    text-decoration:none; 
+    color:#000000; 
+    line-height:30px;
+    border-bottom-style:solid; 
+    border-bottom-width:1px; 
+    border-bottom-color:#CCCCCC;
+    cursor:default;
+}
+
+.gridview-item-header {
+    .gridview-item-base;
+    background-color:#D5D5D5;
+}
+
+.gridview-item {
+    .gridview-item-base;
+    background-color:#FFFFFF;
+}
+
+.gridview-item:hover {
+    color:#FFFFFF; 
+    background: rgba(147,206,222,1);
+    background: -moz-linear-gradient(left, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(147,206,222,1)), color-stop(41%, rgba(117,189,209,1)), color-stop(100%, rgba(73,165,191,1)));
+    background: -webkit-linear-gradient(left, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+    background: -o-linear-gradient(left, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+    background: -ms-linear-gradient(left, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+    background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );
+}
+
+.gridview-column {
+    width: 25%;
+    max-width: 200px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gridview-column-header {
+    .gridview-column;
+}
+
+.selected-gridview-item {
+    .gridview-item-base;
+    color:#FFFFFF; 
+    background: rgba(149,182,222,1);
+    background: -moz-linear-gradient(left, rgba(149,182,222,1) 0%, rgba(116,171,207,1) 41%, rgba(73,135,189,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(149,182,222,1)), color-stop(41%, rgba(116,171,207,1)), color-stop(100%, rgba(73,135,189,1)));
+    background: -webkit-linear-gradient(left, rgba(149,182,222,1) 0%, rgba(116,171,207,1) 41%, rgba(73,135,189,1) 100%);
+    background: -o-linear-gradient(left, rgba(149,182,222,1) 0%, rgba(116,171,207,1) 41%, rgba(73,135,189,1) 100%);
+    background: -ms-linear-gradient(left, rgba(149,182,222,1) 0%, rgba(116,171,207,1) 41%, rgba(73,135,189,1) 100%);
+    background: linear-gradient(to right, rgba(149,182,222,1) 0%, rgba(116,171,207,1) 41%, rgba(73,135,189,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#95b6de', endColorstr='#4987bd', GradientType=1 );
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin-left: 10px;
+}
+
+.asc {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.dsc {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
