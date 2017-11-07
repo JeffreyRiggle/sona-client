@@ -42,7 +42,7 @@ export class IncidentSearch {
     }
 
     createIncident() {
-        var incident = new Incident(1, '', '', '', '');
+        var incident = new Incident(undefined, '', '', '', []);
         this.dialogService.open({viewModel: CreateIncident, model: incident})
         .whenClosed(response => {
             if (response.wasCancelled) {

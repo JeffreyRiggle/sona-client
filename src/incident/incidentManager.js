@@ -88,7 +88,8 @@ export class IncidentManager {
             {
                 description: incident.description,
                 reporter: incident.reporter,
-                state: incident.state
+                state: incident.state,
+                attributes: incident.convertAttributes()
             }
         )
         .send()
