@@ -3,6 +3,43 @@
     border-collapse:collapse;
 }
 
+table.gridview th,
+table.gridview td,
+table.gridview tr,
+table.gridview thead,
+table.gridview tbody { display: block; }
+
+table.gridview thead tr {
+    width: 100%;
+    width: -webkit-calc(100%);
+    width:    -moz-calc(100%);
+    width:         calc(100%);
+}
+
+table.gridview tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+table.gridview tbody {
+    max-height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+table.gridview tbody td,
+table.gridview thead th {
+    width: 19%;
+    float: left;
+}
+
+thead tr th { 
+    height: 30px;
+    line-height: 30px;
+}
+
 .gridview-item-base {
     text-decoration:none; 
     color:#000000; 
@@ -36,8 +73,12 @@
 }
 
 .gridview-column {
-    flex: 1 auto;
+    width: 25%;
+    max-width: 200px;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .gridview-column-header {
@@ -57,7 +98,7 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#95b6de', endColorstr='#4987bd', GradientType=1 );
 }
 
-i {
+.arrow {
     border: solid black;
     border-width: 0 3px 3px 0;
     display: inline-block;
