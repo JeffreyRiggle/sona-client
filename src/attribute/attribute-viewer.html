@@ -1,11 +1,11 @@
 <template>
     <require from="./attribute-item"></require>
-    <div>Attributes</div>
-    <div>
-        <div>
-            <input type="text" value.bind="attributeName">
-            <input type="text" value.bind="attributeValue">
-            <button click.delegate="addAttribute()">Add</button>
+    <div class="attribute-viewer">
+        <div>Attributes</div>
+        <div class="attribute-input-container">
+            <input class="attribute-input" type="text" value.bind="attributeName">
+            <input class="attribute-input" type="text" value.bind="attributeValue">
+            <button class="add-attribute-btn" click.delegate="addAttribute()">Add</button>
         </div>
         <div class="attribute-container">
             <attribute-item repeat.for="att of incident.attributes" model.bind="att" removed.trigger="removeAttribute($event)"></attribute-item>
