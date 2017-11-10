@@ -1,4 +1,5 @@
 <template>
+    <require from="../attribute/attribute-viewer"></require>
     <ai-dialog>
         <ai-dialog-header>${header}</ai-dialog-header>
         <ai-dialog-body>
@@ -7,13 +8,13 @@
                 <input class="create-item-column" type="text" value.bind="incident.reporter">
             </div>
             <div class="create-item-row">
-                <span class="create-item-column">State</span>
-                <input class="create-item-column" type="text" value.bind="incident.state">
-            </div>
-            <div class="create-item-row">
                 <span class="create-item-column">Description</span>
                 <input class="create-item-column" type="text" value.bind="incident.description">
             </div>
+            <button click.delegate="toggleAttributes()" class="attribute-button">${buttonTitle}</button>
+            <attribute-viewer if.bind="showAttributes" 
+                              incident.bind="incident"
+                              class="create-attribute-viewer"></attribute-viewer>
         </ai-dialog-body>
         <ai-dialog-footer>
             <button click.delegate="controller.cancel()">Cancel</button>

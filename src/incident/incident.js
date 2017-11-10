@@ -3,6 +3,7 @@ import {Attribute} from '../attribute/attribute';
 import {Attachment} from '../attachment/attachment';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import notificationManager from '../notifications/sharednotificationmanager';
+import _ from 'underscore';
 
 export class Incident {
     constructor(id, reporter, state, description, attributes) {
@@ -13,6 +14,7 @@ export class Incident {
         this.description = description;
         this.httpClient = new HttpClient();
         this.attributes = attributes;
+        
         this.attachments = [];
     }
 
@@ -83,6 +85,10 @@ export class Incident {
     }
 
     _updateIncident() {
+        if (_.isUndefined(this.id)) {
+            return;
+        }
+
         this.httpClient.createRequest('/sona/v1/' + this.id + '/update')
         .asPut()
         .withContent(
@@ -90,7 +96,7 @@ export class Incident {
                 state: this.state,
                 description: this.description,
                 reporter: this.reporter,
-                attributes: this._convertAttributes()
+                attributes: this.convertAttributes()
             })
         .send()
         .then(data => {
@@ -102,7 +108,7 @@ export class Incident {
         });
     }
 
-    _convertAttributes() {
+    convertAttributes() {
         var retVal = {};
 
         this.attributes.forEach(att => {
