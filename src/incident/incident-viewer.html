@@ -1,12 +1,13 @@
 <template>
     <require from="../attribute/attribute-viewer"></require>
     <require from="../attachment/attachment-viewer"></require>
+    <require from="../common/editable-label"></require>
     <require from="./viewing-area"></require>
     <div>
-        <p>Incident <span>${incident.id}</span></p>
-        <p>Reporter <span>${incident.reporter}</span></p>
-        <p>State <span>${incident.state}</span></p>
-        <p>Description <span>${incident.description}</span></p>
+        <p><b>Incident</b> <span>${incident.id}</span></p>
+        <p><b>Reporter</b> <editable-label item.two-way="incident.reporter"></editable-label></p>
+        <p><b>State</b> <editable-label item.two-way="incident.state"></editable-label></p>
+        <p><b>Description</b> <editable-label item.two-way="incident.description"></editable-label></p>
     </div>
     <attribute-viewer incident.bind="incident"></attribute-viewer>
     <attachment-viewer incident.bind="incident"></attachment-viewer>

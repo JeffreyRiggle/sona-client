@@ -1,0 +1,5 @@
+<template>
+    <span if.bind="!isEditing">${item}</span>
+    <input if.bind="isEditing" type="text" value.bind="item">
+    <button click.delegate="toggleIsEditing()">Edit</button>
+</template>
