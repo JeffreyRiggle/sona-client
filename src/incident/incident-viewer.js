@@ -11,6 +11,7 @@ export class IncidentViewer {
     updateIncident() {
         this.incident.Update();
         this._setupInitialValues(this.incident);
+        this.isDirty = false;
     }
 
     resetIncident() {
