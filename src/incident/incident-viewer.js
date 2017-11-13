@@ -5,6 +5,7 @@ import {inject, bindable, customElement} from 'aurelia-framework';
 export class IncidentViewer {
     constructor() {
         this.initialValues = {};
+        this.isDirty = false;
     }
 
     updateIncident() {
@@ -30,6 +31,10 @@ export class IncidentViewer {
         }
 
         this._setupInitialValues(newValue);
+    }
+
+    valueEdited() {
+        this.isDirty = true;
     }
 
     _setupInitialValues(incident) {
