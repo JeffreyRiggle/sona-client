@@ -4,6 +4,10 @@
     <require from="../common/editable-label"></require>
     <require from="./viewing-area"></require>
     <div>
+        <button click.delegate="resetIncident()">Revert</button>
+        <button click.delegate="updateIncident()">Update</button>
+    </div>
+    <div>
         <p><b>Incident</b> <span>${incident.id}</span></p>
         <p><b>Reporter</b> <editable-label item.two-way="incident.reporter"></editable-label></p>
         <p><b>State</b> <editable-label item.two-way="incident.state"></editable-label></p>
