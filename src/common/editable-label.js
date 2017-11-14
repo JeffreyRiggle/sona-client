@@ -1,4 +1,5 @@
 import {inject, bindable, customElement} from 'aurelia-framework';
+import './editable-label.less';
 
 @customElement('editable-label')
 @bindable('item')
