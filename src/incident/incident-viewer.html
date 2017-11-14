@@ -8,10 +8,10 @@
         <button click.delegate="updateIncident()" disabled.bind="!isDirty">Update</button>
     </div>
     <div>
-        <p><b>Incident</b> <span>${incident.id}</span></p>
-        <p><b>Reporter</b> <editable-label item.two-way="incident.reporter" edited.trigger="valueEdited()"></editable-label></p>
-        <p><b>State</b> <editable-label item.two-way="incident.state" edited.trigger="valueEdited()"></editable-label></p>
-        <p><b>Description</b> <editable-label item.two-way="incident.description" edited.trigger="valueEdited()"></editable-label></p>
+        <p><span class="incident-attribute-header">Incident</span> <span class="incident-attribute-value">${incident.id}</span></p>
+        <p><span class="incident-attribute-header">Reporter</span> <editable-label class="incident-attribute-value" item.two-way="incident.reporter" edited.trigger="valueEdited()"></editable-label></p>
+        <p><span class="incident-attribute-header">State</span> <editable-label class="incident-attribute-value" item.two-way="incident.state" edited.trigger="valueEdited()"></editable-label></p>
+        <p><span class="incident-attribute-header">Description</span> <editable-label class="incident-attribute-value" item.two-way="incident.description" edited.trigger="valueEdited()"></editable-label></p>
     </div>
     <attribute-viewer incident.bind="incident"></attribute-viewer>
     <attachment-viewer incident.bind="incident"></attachment-viewer>
