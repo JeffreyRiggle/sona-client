@@ -5,6 +5,7 @@ import {CreateIncident} from './create-incident';
 import {Filter} from './filter/filter';
 import {ComplexFilter} from './filter/complexfilter';
 import {FilterRequest} from './filter/filterrequest';
+import './incident-search.less';
 
 @customElement('incident-search')
 @bindable('incidentmanager')
@@ -13,9 +14,22 @@ export class IncidentSearch {
 
     constructor(dialogService) {
         this.dialogService = dialogService;
-        this.searchID = '';
-        this.searchState = '';
-        this.searchReporter = '';
+        this.searchProps = [
+            {displayName: 'ID', selected: false, searchValue: '' },
+            {displayName: 'State', selected: true, searchValue: '' },
+            {displayName: 'Reporter', selected: true, searchValue: '' },
+            {displayName: 'Description', selected: false, searchValue: '' }
+        ];
+
+        this.advancedSearch = false;
+    }
+
+    enabledAdvanced() {
+        this.advancedSearch = true;
+    }
+
+    disableAdvanced() {
+        this.advancedSearch = false;
     }
 
     preformSearch() {

@@ -1,0 +1,8 @@
+<template>
+    <require from="./checkable-drop-down"></require>
+    <span repeat.for="prop of props" if.bind="prop.selected">
+        <span>${prop.displayName}</span>
+        <input type="text" value.bind="prop.searchValue">
+    </span>
+    <checkable-drop-down title.bind="title" items.bind="props"></checkable-drop-down>
+</template>
