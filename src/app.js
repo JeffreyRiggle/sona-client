@@ -1,6 +1,7 @@
 import {inject} from 'aurelia-framework';
 import {IncidentManager} from './incident/incidentManager';
 import Split from 'split.js';
+require('font-awesome/css/font-awesome.min.css');
 
 @inject(IncidentManager)
 export class App {

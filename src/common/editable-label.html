@@ -1,0 +1,7 @@
+<template>
+    <span if.bind="!isEditing">${item}</span>
+    <input if.bind="isEditing" type="text" value.bind="item">
+    <button click.delegate="toggleIsEditing()" class="edit-button">
+        <i class="fa ${!isEditing ? 'fa-pencil' : 'fa-times'}" aria-hidden="true"></i>
+    </button>
+</template>

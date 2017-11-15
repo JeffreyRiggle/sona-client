@@ -24,7 +24,7 @@ export class Incident {
         }
 
         this.attributes.push(new Attribute(attributeName, attributeValue));
-        this._updateIncident();
+        this.Update();
     }
 
     removeAttribute(attribute) {
@@ -33,7 +33,7 @@ export class Incident {
             this.attributes.splice(index, 1);
         }
 
-        this._updateIncident();
+        this.Update();
     }
 
     addAttachment(attachment, rawData) {
@@ -84,7 +84,7 @@ export class Incident {
         window.open('/sona/v1/' + this.id + '/attachment/' + attachment.displayName);
     }
 
-    _updateIncident() {
+    Update() {
         if (_.isUndefined(this.id)) {
             return;
         }
