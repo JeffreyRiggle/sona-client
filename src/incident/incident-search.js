@@ -2,9 +2,7 @@ import {inject, bindable, customElement} from 'aurelia-framework';
 import {DialogService} from 'aurelia-dialog';
 import {Incident} from './incident';
 import {CreateIncident} from './create-incident';
-import {Filter} from './filter/filter';
-import {ComplexFilter} from './filter/complexfilter';
-import {FilterRequest} from './filter/filterrequest';
+import filterManager from './filter/filterManager';
 import './incident-search.less';
 
 @customElement('incident-search')
@@ -15,10 +13,10 @@ export class IncidentSearch {
     constructor(dialogService) {
         this.dialogService = dialogService;
         this.searchProps = [
-            {displayName: 'ID', selected: false, searchValue: '' },
-            {displayName: 'State', selected: true, searchValue: '' },
-            {displayName: 'Reporter', selected: true, searchValue: '' },
-            {displayName: 'Description', selected: false, searchValue: '' }
+            {displayName: 'ID', searchId: 'Id', selected: false, searchValue: '' },
+            {displayName: 'State', searchId: 'State', selected: true, searchValue: '' },
+            {displayName: 'Reporter', searchId: 'Reporter', selected: true, searchValue: '' },
+            {displayName: 'Description', searchId: 'Description', selected: false, searchValue: '' }
         ];
 
         this.advancedSearch = false;
@@ -33,26 +31,26 @@ export class IncidentSearch {
     }
 
     preformSearch() {
-        var filters = [];
+        filterManager.clearSimpleFilter();
 
-        if (this.searchID) {
-            filters.push(new ComplexFilter([new Filter('Id', 'contains', this.searchID)], 'and'));
-        }
+        this.searchProps.forEach(v => {
+            if (v.selected && v.searchValue) {
+                filterManager.updateSimpleFilter(v.searchId, v.searchValue);
+            }
+        });
 
-        if (this.searchState) {
-            filters.push(new ComplexFilter([new Filter('State', 'contains', this.searchState)], 'and'));
-        }
+        var filter = filterManager.generateSimpleFilter();
 
-        if (this.searchReporter) {
-            filters.push(new ComplexFilter([new Filter('Reporter', 'contains', this.searchReporter)], 'and'));
-        }
-
-        if (filters.length <= 0) {
+        if (filter.complexfilters.length <= 0) {
             this.incidentmanager.getIncidents();
             return;
         }
 
-        this.incidentmanager.getIncidents(new FilterRequest(filters, 'and'));
+        this.incidentmanager.getIncidents(filter);
+    }
+
+    preformAdvancedSearch() {
+
     }
 
     createIncident() {

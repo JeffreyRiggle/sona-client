@@ -1,9 +1,6 @@
 <template>
     <require from="../common/dynamic-filter"></require>
     <div if.bind="!advancedSearch" class="search-area">
-        <!--<span><span class="search-property">ID</span> <input type="text" value.bind="searchID" class="searchable-input"></span>
-        <span><span class="search-property">State<span> <input type="text" value.bind="searchState" class="searchable-input"></span>
-        <span><span class="search-property">Reporter<span> <input type="text" value.bind="searchReporter" class="searchable-input"></span>-->
         <dynamic-filter props.bind="searchProps"></dynamic-filter>
         <button click.delegate="preformSearch()">Search</button>
         <button click.delegate="enabledAdvanced()">Advanced</button>
@@ -12,7 +9,7 @@
     <div if.bind="advancedSearch" class="search-area">
         <span class="search-property">Search Expression</span>
         <input type="text" value.bind="searchExpression" class="advanced-search">
-        <button click.delegate="preformSearch()">Search</button>
+        <button click.delegate="preformAdvancedSearch()">Search</button>
         <button click.delegate="disableAdvanced()">Standard</button>
     </div>
 </template>
