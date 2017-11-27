@@ -12,6 +12,7 @@ export class IncidentSearch {
 
     constructor(dialogService) {
         this.dialogService = dialogService;
+        this.searchExpression = '';
         this.searchProps = [
             {displayName: 'ID', searchId: 'Id', selected: false, searchValue: '' },
             {displayName: 'State', searchId: 'State', selected: true, searchValue: '' },
@@ -20,6 +21,7 @@ export class IncidentSearch {
         ];
 
         this.advancedSearch = false;
+        this.filterError = false;
     }
 
     enabledAdvanced() {
@@ -50,7 +52,21 @@ export class IncidentSearch {
     }
 
     preformAdvancedSearch() {
+        filterManager.generateComplexFilter(this.searchExpression).then(filter => {
+            if (this.filterError) {
+                this.filterError = false;
+            }
+            
+            this.incidentmanager.getIncidents(filter);
+        }).catch(error => {
+            if (!this.searchExpression) {
+                this.filterError = false;
+                this.incidentmanager.getIncidents();
+                return;
+            }
 
+            this.filterError = true;
+        });
     }
 
     createIncident() {

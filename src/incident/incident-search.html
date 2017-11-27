@@ -8,7 +8,7 @@
     </div>
     <div if.bind="advancedSearch" class="search-area">
         <span class="search-property">Search Expression</span>
-        <input type="text" value.bind="searchExpression" class="advanced-search">
+        <input type="text" value.bind="searchExpression" class="advanced-search ${filterError ? 'search-error' : ''}">
         <button click.delegate="preformAdvancedSearch()">Search</button>
         <button click.delegate="disableAdvanced()">Standard</button>
     </div>
