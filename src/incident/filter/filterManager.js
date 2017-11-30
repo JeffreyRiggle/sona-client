@@ -1,6 +1,7 @@
 import {Filter} from './filter';
 import {ComplexFilter} from './complexfilter';
 import {FilterRequest} from './filterrequest';
+import _ from 'underscore';
 
 const macroReg = /\"[^\"]*\"|\'[^\']*\'/g;
 const juctReg = /\s+AND\s+|\s+OR\s+|\s+&&\s+|\s+\|\|\s+/gi;
@@ -66,37 +67,140 @@ class FilterManager {
 
                 return;
             }
-    
-            match = tempFilter.split(juctReg);
-    
-            match.forEach(m => {
-                var gFilter = this._generateFilterFromString(m, macros);
-    
-                if (gFilter === null) {
-                    reject();
-                }
-    
-                filters.push(gFilter);
-            });
-    
-            let complexFilters = [];
-            iter = -1;
-            var lastFilter;
-            match = tempFilter.match(juctReg);
-            match.forEach(m => {
-                iter++;
-                var junc = this._convertJunction(m);
-                if (lastFilter && lastFilter.junction === junc) {
-                    lastFilter.filters.push(filters[iter+1]);
-                    return;
-                }
-    
-                lastFilter = new ComplexFilter([filters[iter], filters[iter+1]], junc);
-                complexFilters.push(lastFilter);
-            });
-    
+            
+            let complexFilters = this._evaluteExpressionGroups(tempFilter, macros);
+
+            if (complexFilters == null) {
+                reject();
+            }
+
             resolve(new FilterRequest(complexFilters, 'and'));
         });
+    }
+
+    _createExpressionGroups(input) {
+        let macroString = input;
+        let expressionMap = new Map();
+        let closureStart = -1;
+        let nestedClosures = 0;
+        let replacement = 0;
+
+        for (var i = 0; i < input.length; i++) {
+            var c = input.charAt(i);
+
+            if (c === '(' && closureStart === -1) {
+                closureStart = i;
+                continue;
+            }
+
+            if (c === '(' && closureStart !== -1) {
+                nestedClosures++;
+                continue;
+            }
+
+            if (c === ')' && closureStart !== -1 && nestedClosures > 0) {
+                nestedClosures--;
+                continue;
+            }
+
+            if (c === ')' && closureStart !== -1) {
+                var closure = input.substring(closureStart, i);
+                expressionMap.set('ExpressionReplacement' + replacement, closure);
+
+                macroString = macroString.replace(closure, 'ExpressionReplacement' + replacement);
+                closureStart = -1;
+                replacement++;
+            }
+        }
+
+        return {
+            expressions: expressionMap,
+            macro: macroString
+        };
+    }
+
+    _evaluteExpressionGroups(input, macros) {
+        var expressionGroups = this._createExpressionGroups(input);
+        var complexFilters = [];
+
+        if (!expressionGroups.expressions.size) {
+            let filter = this._evaluteExpression(input, macros);
+
+            if (filter === null) {
+                return null;
+            }
+
+            complexFilters = _.union(complexFilters, filter);
+            return complexFilters;
+        }
+
+        var failed = false;
+
+        expressionGroups.expressions.forEach((v, k, m) => {
+            if (failed) {
+                return;
+            }
+
+            if (!this._createExpressionGroups(v).expressions.size) {
+                let cFilter = new ComplexFilter([], 'and');
+                cFilter.children = this._evaluteExpression(v, macros);
+                complexFilters.push(cFilter);
+                return;
+            }
+
+            let filter = this._evaluteExpression(input, macros);
+
+            if (filter === null) {
+                failed = true;
+                return;
+            }
+
+            complexFilters = _.union(complexFilters, filter);
+        });
+
+        if (failed) {
+            return null;
+        }
+
+        return complexFilters;
+    }
+
+    _evaluteExpression(input, macros) {
+        let filters = [];
+        let match = input.split(juctReg);
+        let failed = false;
+    
+        match.forEach(m => {
+            var gFilter = this._generateFilterFromString(m, macros);
+    
+            if (gFilter === null) {
+                failed = true;
+            }
+    
+            filters.push(gFilter);
+        });
+    
+        if (failed) {
+            return null;
+        }
+
+        let complexFilters = [];
+        let iter = -1;
+        var lastFilter;
+        match = input.match(juctReg);
+        match.forEach(m => {
+            iter++;
+            let junc = this._convertJunction(m);
+            if (lastFilter && lastFilter.junction === junc) {
+                lastFilter.filters.push(filters[iter+1]);
+                return;
+            }
+    
+            lastFilter = new ComplexFilter([filters[iter], filters[iter+1]], junc);
+            complexFilters.push(lastFilter);
+        });
+
+        return complexFilters;
     }
 
     _generateFilterFromString(input, replacements) {
