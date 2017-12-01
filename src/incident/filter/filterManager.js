@@ -9,6 +9,7 @@ const compareReg = /\s+equals\s+|\s+=\s+|\s+notequals\s+|\s+!=\s+|\s+contains\s+
 const equalsReg = /\s+equals\s+|\s+=\s+/gi;
 const notEqualsReg = /\s+notequals\s+|\s+!=\s+/gi;
 const andReg = /\s+AND\s+|\s+&&\s+/gi;
+const expressionReg = /\([^\)]*\)/g;
 
 class FilterManager {
     constructor() {
@@ -74,6 +75,7 @@ class FilterManager {
                 reject();
             }
 
+            console.log(complexFilters);
             resolve(new FilterRequest(complexFilters, 'and'));
         });
     }
@@ -104,7 +106,7 @@ class FilterManager {
             }
 
             if (c === ')' && closureStart !== -1) {
-                var closure = input.substring(closureStart, i);
+                var closure = input.substring(closureStart+1, i);
                 expressionMap.set('ExpressionReplacement' + replacement, closure);
 
                 macroString = macroString.replace(closure, 'ExpressionReplacement' + replacement);
@@ -130,8 +132,13 @@ class FilterManager {
                 return null;
             }
 
-            complexFilters = _.union(complexFilters, filter);
+            complexFilters.push(filter);
             return complexFilters;
+        }
+
+        var nonexpression = expressionGroups.macro.replace(expressionReg, '');
+        if (nonexpression) {
+            complexFilters.push(this._evaluteExpression(nonexpression, macros));
         }
 
         var failed = false;
@@ -141,21 +148,16 @@ class FilterManager {
                 return;
             }
 
+            console.log(v);
+
+            let cFilter = new ComplexFilter([], this._getFirstJunction(v));
             if (!this._createExpressionGroups(v).expressions.size) {
-                let cFilter = new ComplexFilter([], 'and');
-                cFilter.children = this._evaluteExpression(v, macros);
-                complexFilters.push(cFilter);
-                return;
+                cFilter.children = [this._evaluteExpression(v, macros)];
+            } else {
+                cFilter.children = this._evaluteExpressionGroups(v, macros);
             }
 
-            let filter = this._evaluteExpression(input, macros);
-
-            if (filter === null) {
-                failed = true;
-                return;
-            }
-
-            complexFilters = _.union(complexFilters, filter);
+            complexFilters.push(cFilter);
         });
 
         if (failed) {
@@ -171,6 +173,10 @@ class FilterManager {
         let failed = false;
     
         match.forEach(m => {
+            if (!m) {
+                return;
+            }
+            
             var gFilter = this._generateFilterFromString(m, macros);
     
             if (gFilter === null) {
@@ -184,23 +190,37 @@ class FilterManager {
             return null;
         }
 
-        let complexFilters = [];
-        let iter = -1;
-        var lastFilter;
+        var junc;
         match = input.match(juctReg);
         match.forEach(m => {
-            iter++;
-            let junc = this._convertJunction(m);
-            if (lastFilter && lastFilter.junction === junc) {
-                lastFilter.filters.push(filters[iter+1]);
+            if (!junc) {
+                junc = this._convertJunction(m);
                 return;
             }
-    
-            lastFilter = new ComplexFilter([filters[iter], filters[iter+1]], junc);
-            complexFilters.push(lastFilter);
+            
+            if (junc !== this._convertJunction(m)) {
+                failed = true;
+            }
         });
 
-        return complexFilters;
+        if (failed) {
+            return null;
+        }
+
+        return new ComplexFilter(filters, junc);
+    }
+
+    _getFirstJunction(input) {
+        var junc;
+        var match = input.match(juctReg);
+        match.forEach(m => {
+            if (!junc) {
+                junc = this._convertJunction(m);
+                return;
+            }
+        });
+
+        return junc;
     }
 
     _generateFilterFromString(input, replacements) {
