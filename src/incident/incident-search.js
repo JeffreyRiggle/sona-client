@@ -2,7 +2,7 @@ import {inject, bindable, customElement} from 'aurelia-framework';
 import {DialogService} from 'aurelia-dialog';
 import {Incident} from './incident';
 import {CreateIncident} from './create-incident';
-import filterManager from './filter/filterManager';
+import {getSharedInstance} from './filter/filterManager';
 import './incident-search.less';
 
 @customElement('incident-search')
@@ -12,6 +12,7 @@ export class IncidentSearch {
 
     constructor(dialogService) {
         this.dialogService = dialogService;
+        this.filterManager = getSharedInstance();
         this.searchExpression = '';
         this.searchProps = [
             {displayName: 'ID', searchId: 'Id', selected: false, searchValue: '' },

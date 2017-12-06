@@ -271,4 +271,16 @@ class FilterManager {
 }
 
 let manager = new FilterManager();
-export default manager;
+
+const createNewInstance = () => {
+    return new FilterManager();
+}
+
+const getSharedInstance = () => {
+    return manager;
+}
+
+export default {
+    createNewInstance,
+    getSharedInstance
+};
