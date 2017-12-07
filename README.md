@@ -9,3 +9,6 @@ Nodejs and npm should be installed.
 * Install yarn `npm install yarn`
 * download dependencies `yarn install`
 * run dev server `yarn run dev`
+
+### Testing
+* run `yarn test`
