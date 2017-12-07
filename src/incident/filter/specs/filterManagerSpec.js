@@ -1,4 +1,4 @@
-import filterManager from '../filterManager';
+import {createNewInstance} from '../filterManager';
 import {Filter} from '../filter';
 import {ComplexFilter} from '../complexfilter';
 import {FilterRequest} from '../filterrequest';
@@ -7,7 +7,7 @@ describe('FilterManager', function() {
     var manager;
 
     beforeEach(function() {
-        manager = filterManager.createNewInstance();
+        manager = createNewInstance();
     });
 
     describe('when a simple filter is used', function() {
@@ -252,20 +252,27 @@ describe('FilterManager', function() {
             var filter, expectedFilter;
 
             beforeEach(function(done) {
-                expectedFilter = new FilterRequest([
+                var child1 = new ComplexFilter([new Filter('Reporter', 'equals', 'Tester')], 'and');
+                var child2 = new ComplexFilter([], 'or');
+
+                child2.children = [
                     new ComplexFilter([
-                        new Filter('Reporter', 'equals', 'Tester'),
-                        new Filter('State', 'notequals', 'closed')
+                        new Filter('State', 'notequals', 'closed'),
+                        new Filter('Description', 'contains', 'Foo')
                     ], 'or')
-                ], 'and');
+                ];
+
+                expectedFilter = new FilterRequest([child1, child2], 'and');
 
                 manager.generateComplexFilter('Reporter = \'Tester\' AND (State != \'closed\' OR Description contains \'Foo\')').then(result => {
+                    console.log('Got result ' + result);
                     filter = result;
                     done();
                 });
             });
 
             it('should create the correct filter', function() {
+                console.log('comparing ' + filter + ' to ' + expectedFilter);
                 expect(filter).toEqual(expectedFilter);
             });
         });
@@ -274,12 +281,25 @@ describe('FilterManager', function() {
             var filter, expectedFilter;
 
             beforeEach(function(done) {
-                expectedFilter = new FilterRequest([
+                var child1 = new ComplexFilter([new Filter('Reporter', 'equals', 'Tester')], 'and');
+                var child2 = new ComplexFilter([], 'or');
+                var nestedChild = new ComplexFilter([], 'and');
+                nestedChild.children = [
                     new ComplexFilter([
-                        new Filter('Reporter', 'equals', 'Tester'),
-                        new Filter('State', 'notequals', 'closed')
-                    ], 'or')
-                ], 'and');
+                        new Filter('State', 'equals', 'open'),
+                        new Filter('testvar', 'equals', 'Foo')
+                    ], 'and')
+                ];
+
+                child2.children = [
+                    new ComplexFilter([
+                        new Filter('State', 'notequals', 'closed'),
+                        new Filter('Description', 'contains', 'Foo')
+                    ], 'or'),
+                    nestedChild
+                ];
+
+                expectedFilter = new FilterRequest([child1, child2], 'and');
 
                 manager.generateComplexFilter('Reporter = \'Tester\' AND (State != \'closed\' OR Description contains \'Foo\' OR (State = \'open\' AND testvar = \'Foo\'))').then(result => {
                     filter = result;

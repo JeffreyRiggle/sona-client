@@ -34,7 +34,7 @@ export class IncidentSearch {
     }
 
     preformSearch() {
-        filterManager.clearSimpleFilter();
+        this.filterManager.clearSimpleFilter();
 
         this.searchProps.forEach(v => {
             if (v.selected && v.searchValue) {
@@ -53,7 +53,7 @@ export class IncidentSearch {
     }
 
     preformAdvancedSearch() {
-        filterManager.generateComplexFilter(this.searchExpression).then(filter => {
+        this.filterManager.generateComplexFilter(this.searchExpression).then(filter => {
             if (this.filterError) {
                 this.filterError = false;
             }

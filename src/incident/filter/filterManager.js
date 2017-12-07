@@ -4,11 +4,11 @@ import {FilterRequest} from './filterrequest';
 import _ from 'underscore';
 
 const macroReg = /\"[^\"]*\"|\'[^\']*\'/g;
-const juctReg = /\s+AND\s+|\s+OR\s+|\s+&&\s+|\s+\|\|\s+/gi;
-const compareReg = /\s+equals\s+|\s+=\s+|\s+notequals\s+|\s+!=\s+|\s+contains\s+/gi;
-const equalsReg = /\s+equals\s+|\s+=\s+/gi;
-const notEqualsReg = /\s+notequals\s+|\s+!=\s+/gi;
-const andReg = /\s+AND\s+|\s+&&\s+/gi;
+const juctReg = /\s+AND\s+|\s+OR\s+|\s+&&\s+|\s+\|\|\s+/i;
+const compareReg = /\s+equals\s+|\s+=\s+|\s+notequals\s+|\s+!=\s+|\s+contains\s+/i;
+const equalsReg = /\s+equals\s+|\s+=\s+/i;
+const notEqualsReg = /\s+notequals\s+|\s+!=\s+/i;
+const andReg = /\s+AND\s+|\s+&&\s+/i;
 const expressionReg = /\([^\)]*\)/g;
 
 class FilterManager {
@@ -148,8 +148,6 @@ class FilterManager {
                 return;
             }
 
-            console.log(v);
-
             let cFilter = new ComplexFilter([], this._getFirstJunction(v));
             if (!this._createExpressionGroups(v).expressions.size) {
                 cFilter.children = [this._evaluteExpression(v, macros)];
@@ -280,7 +278,7 @@ const getSharedInstance = () => {
     return manager;
 }
 
-export default {
+export {
     createNewInstance,
     getSharedInstance
 };
