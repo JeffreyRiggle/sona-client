@@ -79,4 +79,12 @@ export class GridView {
             this.items =  temp;
         }
     }
+
+    getItemValue(item, column) {
+        if (column.converter) {
+            return column.converter(item);
+        }
+
+        return item[column.property];
+    }
 }

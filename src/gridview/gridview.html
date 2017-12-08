@@ -1,5 +1,6 @@
 <template>
     <require from="../common/checkable-drop-down"></require>
+    <require from="./grid-item-format"></require>
     <table class="gridview">
         <thead>
             <tr class="gridview-item-header">
@@ -17,7 +18,7 @@
             <tr repeat.for="item of items"
                 click.delegate="itemClicked(item)"
                 class="${selected === item ? 'selected-gridview-item' : 'gridview-item'}">
-                <td class="gridview-column" repeat.for="column of selectedColumns">${item[column.property]}</td>
+                <td class="gridview-column" repeat.for="column of selectedColumns">${item | gridItemFormat:column.property:column.converter}</td>
             </tr>
         </tbody>
     </table>

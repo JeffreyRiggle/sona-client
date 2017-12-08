@@ -5,13 +5,16 @@ import {Incident} from './incident';
 import {Attachment} from '../attachment/attachment';
 import {Attribute} from '../attribute/attribute';
 import notificationManager from '../notifications/sharednotificationmanager';
+import {EventEmitter} from '../common/EventEmitter';
 
 @inject(EventAggregator)
-export class IncidentManager {
+export class IncidentManager extends EventEmitter {
     constructor(EventAggregator) {
+        super();
         this.eventAg = EventAggregator;
         this.httpClient = new HttpClient();
         this.incidents = [];
+        this._knownAttributes = [];
         this._setup();
         /*this.currentincident = new Incident('2', 'tester', 'open', 'testing description');
         this.currentincident.addAttribute('gitissue', '/repos/JeffreyRiggle/logrunner/issues/2');
@@ -42,8 +45,16 @@ export class IncidentManager {
 
     _convertIncident(incident) {
         let attribs = [];
+        let attributesChanged = false;
+
         if (incident.attributes) {
             for (var prop in incident.attributes) {
+                let index = this.knownAttributes.indexOf(prop);
+                if (index === -1) {
+                    attributesChanged = true;
+                    this._knownAttributes.push(prop);
+                }
+
                 if (incident.attributes.hasOwnProperty(prop)) {
                     attribs.push(new Attribute(prop, incident.attributes[prop]));
                 }
@@ -68,6 +79,10 @@ export class IncidentManager {
             }).catch(error => {
                 notificationManager.addError('Unable to get attachments for ' + incident.id);
             });
+
+        if (attributesChanged) {
+            this.emit('knownAttributesChanged');
+        }
 
         return inc;
     }
@@ -127,5 +142,9 @@ export class IncidentManager {
     _updateCurrentIncident(incident) {
         this.currentincident = incident;
         this.eventAg.publish('incidentSelected', incident);
+    }
+
+    get knownAttributes() {
+        return this._knownAttributes;
     }
 }
