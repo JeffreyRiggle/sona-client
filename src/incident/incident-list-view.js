@@ -6,10 +6,10 @@ export class IncidentListView {
     constructor() {
         this.listOptions = {
             columns: [
-                { displayName: 'ID', property: 'id' },
-                { displayName: 'State', property: 'state' },
-                { displayName: 'Reporter', property: 'reporter' },
-                { displayName: 'Description', property: 'description' }
+                { displayName: 'ID', property: 'id', selected: true },
+                { displayName: 'State', property: 'state', selected: true },
+                { displayName: 'Reporter', property: 'reporter', selected: true },
+                { displayName: 'Description', property: 'description', selected: false }
             ]
         };
     }

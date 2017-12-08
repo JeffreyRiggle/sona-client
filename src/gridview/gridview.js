@@ -11,6 +11,7 @@ export class GridView {
     constructor(element) {
         this.element = element;
         this.selected = {};
+        this.selectedColumns = [];
         this.sortProperty = '';
     }
 
@@ -19,6 +20,34 @@ export class GridView {
 
         let e = new CustomEvent('selectedchanged', { detail: this.selected });
         this.element.dispatchEvent(e);
+    }
+
+    optionsChanged(newValue, oldValue) {
+        if (oldValue) {
+            this.selectedColumns = [];
+        }
+
+        if (!newValue || !newValue.columns) {
+            return;
+        }
+
+        newValue.columns.forEach(v => {
+            if (v.selected) {
+                this.selectedColumns.push(v);
+            }
+        });
+    }
+
+    onColumnAdded(event) {
+        this.selectedColumns.push(event.detail);
+    }
+
+    onColumnRemoved(event) {
+        let index = this.selectedColumns.indexOf(event.detail);
+
+        if (index !== -1) {
+            this.selectedColumns.splice(index, 1);
+        }
     }
 
     changeSort(column) {
