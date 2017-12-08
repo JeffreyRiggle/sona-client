@@ -18,6 +18,10 @@ export class CheckableDropDown {
         this.dom.addEventListener('keydown', this.onKeyPressed.bind(this));
     }
 
+    hide() {
+        this.showDropDown = false;
+    }
+
     onKeyPressed(event) {
         if (!this.showDropDown) {
             return;
