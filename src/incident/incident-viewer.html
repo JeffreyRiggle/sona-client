@@ -4,8 +4,14 @@
     <require from="../common/editable-label"></require>
     <require from="./viewing-area"></require>
     <div>
-        <button click.delegate="resetIncident()" disabled.bind="!isDirty">Revert</button>
-        <button click.delegate="updateIncident()" disabled.bind="!isDirty">Update</button>
+        <button click.delegate="resetIncident()" disabled.bind="!isDirty" class="common-button tooltip">
+            <i class="fa fa-undo"></i>
+            <span class="tooltiptext">Revert</span>
+        </button>
+        <button click.delegate="updateIncident()" disabled.bind="!isDirty" class="common-button tooltip">
+            <i class="fa fa-save"></i>
+            <span class="tooltiptext">Update</span>
+        </button>
     </div>
     <div>
         <p><span class="incident-attribute-header">Incident</span> <span class="incident-attribute-value">${incident.id}</span></p>

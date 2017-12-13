@@ -4,7 +4,10 @@
             <h1>${id}</h1>
             <span class="${closed ? 'state-closed' : 'state-open'}">${state}</span>
             <span class="reporter">${reporter}</span>
-            <button class="view-git" click.delegate="viewInGit()">View in GitHub</button>
+            <button class="view-git tooltip" click.delegate="viewInGit()">
+                <i class="fa fa-github"></i>
+                <span class="tooltiptext">View in GitHub</span>
+            </button>
         </div>
         <div class="commentarea">
             <div repeat.for="comment of comments">

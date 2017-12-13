@@ -3,6 +3,8 @@
 @textColor: #6bc9ff;
 @removeColor: linear-gradient(to bottom, #ff3019 0%,#cf0404 100%);
 @valueColor: linear-gradient(to bottom, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);
+@buttonTextColor: #0ba8fc;
+@addColor: rgb(119, 247, 119);
 
 .common-input {
     color: white;
@@ -12,6 +14,18 @@
 
 .common-input:focus, input:focus {
     outline-color: #6bc9ff;
+}
+
+.common-button {
+    background-color: #485870;
+    color: #0ba8fc;
+    border: 1px solid #748092;
+}
+
+.common-button:disabled {
+    background-color: #9b9b9b;
+    color: #72cffd;
+    border: 1px solid #dadada;
 }
 
 .tooltip {
