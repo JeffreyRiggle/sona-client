@@ -5,6 +5,7 @@ import './checkable-drop-down.less';
 @customElement('checkable-drop-down')
 @bindable('items')
 @bindable('title')
+@bindable('buttonClass')
 @inject(Element, DOM)
 export class CheckableDropDown {
     constructor(element, dom) {
@@ -40,9 +41,9 @@ export class CheckableDropDown {
         var e;
 
         if (item.selected) {
-            e = new CustomEvent('item-unchecked', {detail: item});
-        } else {
             e = new CustomEvent('item-checked', {detail: item});
+        } else {
+            e = new CustomEvent('item-unchecked', {detail: item});
         }
 
         this.element.dispatchEvent(e);

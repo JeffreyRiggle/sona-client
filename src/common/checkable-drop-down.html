@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown">
-        <button click.delegate="toggleShow()">${title}</button>
+        <button click.delegate="toggleShow()" class.bind="buttonClass">${title}</button>
         <ul if.bind="showDropDown" class="drop-list" focusout.trigger="hide()">
             <li class="drop-list-item" repeat.for="item of items">
                 <input type="checkbox" checked.bind="item.selected" change.delegate="itemChecked(item)">
