@@ -1,4 +1,5 @@
 import {inject, bindable, customElement} from 'aurelia-framework';
+import './attachment-item.less';
 
 @customElement('attachment-item')
 @bindable('model')

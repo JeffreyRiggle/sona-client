@@ -1,19 +1,7 @@
-.attachment-item {
-    background: linear-gradient(to bottom, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);
-    padding-left: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border: none;
-}
+@import '../common.less';
 
 .attachment-container {
     margin: 20px;
-}
-
-.attachment-remove {
-    padding: 5px;
-    border: none;
-    background: linear-gradient(to bottom, #ff3019 0%,#cf0404 100%);
 }
 
 .upload-attachment-continer {
@@ -22,38 +10,6 @@
     border-width: 3px;
 }
 
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 200px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 150%;
-    left: 50%;
-    margin-left: -60px;
-}
-
-.tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
+.attachment-header {
+    color: @textColor;
 }
