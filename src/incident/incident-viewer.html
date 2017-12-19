@@ -2,15 +2,20 @@
     <require from="../attribute/attribute-viewer"></require>
     <require from="../attachment/attachment-viewer"></require>
     <require from="../common/editable-label"></require>
+    <require from="../common/tooltip"></require>
     <require from="./viewing-area"></require>
     <div>
-        <button click.delegate="resetIncident()" disabled.bind="!isDirty" class="common-button tooltip">
+        <button click.delegate="resetIncident()" 
+                disabled.bind="!isDirty" 
+                class="common-button"
+                tool-tip="text: Revert; location: bottom">
             <i class="fa fa-undo"></i>
-            <span class="tooltiptext">Revert</span>
         </button>
-        <button click.delegate="updateIncident()" disabled.bind="!isDirty" class="common-button tooltip">
+        <button click.delegate="updateIncident()" 
+                disabled.bind="!isDirty" 
+                class="common-button"
+                tool-tip="text: Update; location: bottom">
             <i class="fa fa-save"></i>
-            <span class="tooltiptext">Update</span>
         </button>
     </div>
     <div>

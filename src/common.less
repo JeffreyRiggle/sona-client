@@ -22,10 +22,14 @@
     border: 1px solid #748092;
 }
 
-.common-button:disabled {
+.common-disabled-button {
     background-color: #9b9b9b;
     color: #72cffd;
     border: 1px solid #dadada;
+}
+
+.common-button:disabled {
+    .common-disabled-button;
 }
 
 .tooltip {
@@ -34,30 +38,88 @@
     border-bottom: 1px dotted black;
 }
 
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 200px;
+.base-tool-tip-text {
     background-color: black;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 5px 0;
+    padding: 10px 10px;
     position: absolute;
     z-index: 1;
-    bottom: 150%;
-    left: 50%;
-    margin-left: -60px;
 }
 
-.tooltip .tooltiptext::after {
+.top-tooltip-text {
+    .base-tool-tip-text;
+    bottom: 150%;
+    left: 0%;
+    margin-left: -75%;
+}
+
+.bottom-tooltip-text {
+    .base-tool-tip-text;
+    top: 150%;
+    right: 0%;
+    margin-right: -75%;
+}
+
+.right-tooltip-text {
+    .base-tool-tip-text;
+    top: 0%;
+    left: 150%;
+    margin-top: -50%;
+}
+
+.left-tooltip-text {
+    .base-tool-tip-text;
+    top: 0%;
+    right: 150%;
+    margin-top: -50%;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    .top-tooltip-text;
+}
+
+.base-tooltip-arrow {
     content: "";
     position: absolute;
+    border-style: solid;
+}
+
+.tooltip .tooltiptext::after,
+.tooltip .top-tooltip-text::after {
+    .base-tooltip-arrow;
     top: 100%;
     left: 50%;
     margin-left: -5px;
     border-width: 5px;
-    border-style: solid;
     border-color: black transparent transparent transparent;
+}
+
+.tooltip .bottom-tooltip-text::after {
+    .base-tooltip-arrow;
+    bottom: 100%;
+    right: 50%;
+    margin-right: -5px;
+    border-width: 5px;
+    border-color: transparent transparent black transparent;
+}
+
+.tooltip .right-tooltip-text::after {
+    .base-tooltip-arrow;
+    top: 45%;
+    right: 100%;
+    border-width: 5px;
+    border-color: transparent black transparent transparent;
+}
+
+.tooltip .left-tooltip-text::after {
+    .base-tooltip-arrow;
+    top: 45%;
+    left: 100%;
+    border-width: 5px;
+    border-color: transparent transparent transparent black;
 }
 
 .tooltip:hover .tooltiptext {

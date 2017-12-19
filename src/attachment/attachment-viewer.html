@@ -1,5 +1,6 @@
 <template>
     <require from="./attachment-item"></require>
+    <require from="../common/tooltip"></require>
     <div class="attachment-header">Attachments</div>
     <div class="attachment-container">
         <attachment-item 
@@ -8,9 +9,10 @@
             removed.trigger="removeAttachment($event)" 
             download.trigger="downloadAttachment($event)">
         </attachment-item>
-        <Button click.delegate="addAttachments()" class="upload-attachments-button tooltip">
+        <Button click.delegate="addAttachments()" 
+                class="upload-attachments-button"
+                tool-tip="text: Upload; location: right">
             <i class="fa fa-upload"></i>
-            <span class="tooltiptext">Upload</span>
         </Button>
     </div>
 <template>
