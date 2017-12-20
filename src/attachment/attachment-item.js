@@ -7,6 +7,20 @@ import './attachment-item.less';
 export class AttachmentItem {
     constructor(element) {
         this.element = element;
+        this.time = '';
+    }
+
+    modelChanged(newValue, oldValue) {
+        if (!newValue) {
+            this.time = '';
+            return;
+        }
+
+        if (oldValue === newValue) {
+            return;
+        }
+
+        this.time = newValue.getFormatedTime();
     }
 
     remove() {

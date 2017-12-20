@@ -1,6 +1,6 @@
 <template>
-    <div class="tooltip">
-        <button class="attachment-item" click.delegate="download()">${model.displayName}</button><button class="attachment-remove" click.delegate="remove()">x</button>
-        <span class="tooltiptext">${model.getFormatedTime()}</span>
-    </div>
+    <require from="../common/tooltip"></require>
+    <span>
+        <button class="attachment-item" click.delegate="download()" tool-tip="text.bind: time; location: top">${model.displayName}</button><button class="attachment-remove" click.delegate="remove()">x</button>
+    </span>
 </template>
