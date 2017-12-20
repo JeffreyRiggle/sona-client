@@ -1,6 +1,7 @@
 <template>
     <require from="./attachment-item"></require>
-    <div>Attachments</div>
+    <require from="../common/tooltip"></require>
+    <div class="attachment-header">Attachments</div>
     <div class="attachment-container">
         <attachment-item 
             repeat.for="attachment of incident.attachments" 
@@ -8,6 +9,10 @@
             removed.trigger="removeAttachment($event)" 
             download.trigger="downloadAttachment($event)">
         </attachment-item>
-        <Button click.delegate="addAttachments()">Upload Attachments</Button>
+        <Button click.delegate="addAttachments()" 
+                class="upload-attachments-button"
+                tool-tip="text: Upload; location: right">
+            <i class="fa fa-upload"></i>
+        </Button>
     </div>
 <template>

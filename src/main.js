@@ -1,5 +1,4 @@
 import {Aurelia, PLATFORM} from 'aurelia-framework';
-// Hack to force webpack to load styles
 import styles from './styleloader/loader';
 
 export function configure(aurelia) {

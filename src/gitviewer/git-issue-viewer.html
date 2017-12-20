@@ -1,10 +1,15 @@
 <template>
+    <require from="../common/tooltip"></require>
     <div class="scrollarea">
         <div class="git-header">
             <h1>${id}</h1>
             <span class="${closed ? 'state-closed' : 'state-open'}">${state}</span>
             <span class="reporter">${reporter}</span>
-            <button class="view-git" click.delegate="viewInGit()">View in GitHub</button>
+            <button class="view-git" 
+                    click.delegate="viewInGit()"
+                    tool-tip="text: View in GitHub; location: left">
+                <i class="fa fa-github"></i>
+            </button>
         </div>
         <div class="commentarea">
             <div repeat.for="comment of comments">

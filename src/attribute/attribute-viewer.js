@@ -1,4 +1,5 @@
 import {inject, bindable, customElement} from 'aurelia-framework';
+import './attribute.less';
 
 @customElement('attribute-viewer')
 @bindable('incident')

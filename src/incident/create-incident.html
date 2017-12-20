@@ -1,14 +1,14 @@
 <template>
     <require from="../attribute/attribute-viewer"></require>
     <ai-dialog>
-        <ai-dialog-header>${header}</ai-dialog-header>
+        <ai-dialog-header><h2 class="create-header">${header}</h2></ai-dialog-header>
         <ai-dialog-body>
             <div class="create-item-row">
-                <span class="create-item-column">Reporter</span>
+                <span class="create-item-column-detail">Reporter</span>
                 <input class="create-item-column" type="text" value.bind="incident.reporter">
             </div>
             <div class="create-item-row">
-                <span class="create-item-column">Description</span>
+                <span class="create-item-column-detail">Description</span>
                 <input class="create-item-column" type="text" value.bind="incident.description">
             </div>
             <button click.delegate="toggleAttributes()" class="attribute-button">${buttonTitle}</button>

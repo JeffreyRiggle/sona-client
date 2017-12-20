@@ -1,5 +1,6 @@
 import {inject, bindable, customElement} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
+import './viewer.less';
 
 @customElement('viewing-area')
 @bindable('incident')

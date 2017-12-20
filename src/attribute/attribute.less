@@ -1,3 +1,8 @@
+@import '../common.less';
+
+.attribute-header {
+    color: @textColor;
+}
 .attribute-container {
     margin: 20px;
 }
@@ -17,8 +22,12 @@
     min-width: 50px;
     display: flex;
     flex: 1;
+    margin-right: 5px;
+    .common-input;
 }
 
 .add-attribute-btn {
     width: 25;
+    .common-button;
+    color: @addColor;
 }

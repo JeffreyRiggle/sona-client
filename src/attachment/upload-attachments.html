@@ -1,15 +1,26 @@
 <template>
     <ai-dialog>
-        <ai-dialog-header>${header}</ai-dialog-header>
+        <ai-dialog-header><h2>${header}</h2></ai-dialog-header>
         <ai-dialog-body>
-            <input type="file" change.delegate="attachFile($event)">
-            <ul>
-                <li repeat.for="file of files">${file.name}</li>
+            <input type="file" 
+                   name="file"
+                   id="file" 
+                   change.delegate="attachFile($event)"
+                   class="file-input" />
+            <label for="file" class="input-override">
+                <i class="fa fa-upload"></i>
+                <span>Choose a file...</span>
+            </label>
+            <ul class="attached-list">
+                <li repeat.for="file of files" class="pending-file">
+                    <span>${file.name}</span>
+                    <button click.delegate="removeFile(file)" class="cancel-attachment"><i class="fa fa-close"></i></button>
+                </li>
             </ul>
         </ai-dialog-body>
         <ai-dialog-footer>
             <button click.delegate="controller.cancel()">Cancel</button>
-            <button click.delegate="controller.ok(files)">Upload</button>
+            <button click.delegate="controller.ok(files)" disabled.bind="!hasFiles">Upload</button>
         </ai-dialog-footer>
     </ai-dialog>
 </template>

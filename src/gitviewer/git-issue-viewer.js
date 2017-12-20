@@ -1,6 +1,7 @@
 import {inject, bindable, customElement} from 'aurelia-framework';
 import {HttpClient, Headers} from 'aurelia-http-client';
 import {GitComment} from './git-comment';
+import './git.less';
 
 @customElement('git-issue-viewer')
 @bindable('issue')
