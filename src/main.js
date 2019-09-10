@@ -1,5 +1,5 @@
 import {Aurelia, PLATFORM} from 'aurelia-framework';
-import styles from './styleloader/loader';
+import './styleloader/loader';
 
 export function configure(aurelia) {
     aurelia.use

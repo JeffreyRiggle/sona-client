@@ -1,53 +1,62 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const AureliaWebpackPlugin = require('aurelia-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const { AureliaPlugin } = require('aurelia-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: {
-    main: [ 
-      'aurelia-bootstrapper'
-    ]
-  },
-
+  mode: 'development',
+  entry: 'aurelia-bootstrapper',
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: '[name].js',    
-    chunkFilename: '[name].js'
+    filename: 'bundle.js'
   },
-
   resolve: {
     extensions: ['.ts', '.js'],
-    modules: ['src', 'node_modules'],
+    modules: ['src', 'node_modules'].map(x => path.resolve(x)),
   },
-
   module: {
     rules: [
-      { 
+      {
         test: /\.(js)$/,
-        loaders: 'babel-loader',
-        exclude: /node_modules/,
-        query: { 
-          presets: [['env', { modules: false }]],
-          plugins: ['transform-class-properties', 'transform-decorators-legacy']
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: [
+              ['@babel/plugin-proposal-decorators', { "legacy": true}],
+              ['@babel/plugin-proposal-class-properties', { "loose": true}]
+            ]
+          }
         }
       },
       { 
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: 'css-loader'
-        })
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development'
+            }
+          },
+          'css-loader'
+        ]
       },
       {
         test: /\.less$/,
         exclude: /node_modules/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'less-loader']
-        })
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development'
+            }
+          },
+          'css-loader',
+          'less-loader'
+        ]
       },
       { 
         test: /\.html$/i, 
@@ -76,17 +85,14 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.ProvidePlugin({
-        Map: 'core-js/es6/map',
-        WeakMap: 'core-js/es6/weak-map',
-        Promise: 'core-js/es6/promise',
-        regeneratorRuntime: 'regenerator-runtime'
+    new AureliaPlugin({
+      dist: 'es2015',
+      features: { ie: false, svg: false, unparser: false, polyfills: "esnext" }
     }),
-    new AureliaWebpackPlugin.AureliaPlugin(),
-    new ExtractTextPlugin({
-      filename: 'styles.css',
-      disable: false,
-      allChunks: true
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false
     }), 
     new HtmlWebpackPlugin({
         template: '!html-webpack-plugin/lib/loader!index.html',
@@ -105,5 +111,5 @@ module.exports = {
         changeOrigin: true
       }
     }
-  },
+  }
 };
