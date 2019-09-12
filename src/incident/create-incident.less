@@ -16,21 +16,43 @@
     width: 40%;
 }
 
-.create-item-row {
-    margin: 10px;
-    padding: 20px;
-}
+.create-item-body {
+    display: flex;
+    flex-direction: column;
 
-.attribute-button {
-    width: 100%;
-    margin: 10px;
-    background: transparent;
-    border: 1px solid black;
-    box-shadow: 0 0 2px black;
-    outline: none;
+    .create-item-row {
+        flex: 1 1 auto;
+        padding: 12px;
 
-    &:hover {
-        background: lightblue;
+        &:last-of-type {
+            margin-bottom: 8px;
+        }
+    }
+
+    .attribute-button {
+        flex: 1 1 auto;
+        margin: 10px;
+        background: transparent;
+        border: 1px solid black;
+        box-shadow: 0 0 2px black;
+        outline: none;
+    
+        &:hover {
+            background: lightblue;
+        }
+    }
+
+    .create-attribute-viewer {
+        flex: 1 1 auto;
+        max-width: unset;
+
+        .attribute-input-container {
+            width: unset;
+
+            .attribute-input {
+                color: black;
+            }
+        }
     }
 }
 
