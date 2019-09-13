@@ -49,6 +49,7 @@
   "scripts": {
     "test": "karma start karma.config.js",
     "dev": "webpack-dev-server --hot --inline",
+    "dev:docker": "npm run build && sudo docker run -p 80:80 sonaclient/nginx:latest",
     "build:local": "webpack",
     "build": "npm run build:local && sudo docker build -t sonaclient/nginx:latest ."
   }
