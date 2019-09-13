@@ -48,6 +48,8 @@
   },
   "scripts": {
     "test": "karma start karma.config.js",
-    "dev": "webpack-dev-server --hot --inline"
+    "dev": "webpack-dev-server --hot --inline",
+    "build:local": "webpack",
+    "build": "npm run build:local && sudo docker build -t sonaclient/nginx:latest ."
   }
 }
