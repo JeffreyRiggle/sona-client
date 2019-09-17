@@ -20,7 +20,11 @@ export class CheckableDropDown {
     }
 
     hide() {
-        this.showDropDown = false;
+        setTimeout(() => {
+            if (!this.element.querySelector(':focus')) {
+                this.showDropDown = false;
+            }
+        });
     }
 
     onKeyPressed(event) {

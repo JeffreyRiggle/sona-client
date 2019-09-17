@@ -20,19 +20,19 @@
 .remove {
     position: relative;
     border: none;
-    right: -30px;
-    padding: 5px;
+    visibility: hidden;
+    right: -10px;
+    padding: 6px;
     background: @removeColor;
 }
 
 .remove-container {
-    width: 30px;
-    display: inline-block;
+    display: inline;
     overflow: hidden;
-    vertical-align: middle;
 }
 
 .container:hover .remove {
-    transition: 1s;
+    transition: 500ms;
     right: 0;
+    visibility: visible;
 }
