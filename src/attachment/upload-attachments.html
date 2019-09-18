@@ -18,7 +18,7 @@
                 </li>
             </ul>
         </ai-dialog-body>
-        <ai-dialog-footer>
+        <ai-dialog-footer class="modal-footer">
             <button click.delegate="controller.cancel()">Cancel</button>
             <button click.delegate="controller.ok(files)" disabled.bind="!hasFiles">Upload</button>
         </ai-dialog-footer>
