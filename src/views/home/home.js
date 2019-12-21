@@ -13,10 +13,12 @@ export class Home {
 
     attached() {
         if (!loginService.token) {
-            routing.navigate('login');
+            setTimeout(() => {
+                routing.navigate('login');
+            });
             return;
         }
-        
+
         Split(['#listview', '#viewer'], {
             sizes: [65, 35]
         });

@@ -12,3 +12,9 @@ Nodejs and npm should be installed.
 
 ### Testing
 * run `yarn test`
+
+## TODOS
+- get auth working
+- create pipeline
+- ?
+- profit
