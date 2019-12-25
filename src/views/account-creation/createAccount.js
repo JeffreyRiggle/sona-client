@@ -21,14 +21,14 @@ export class CreateAccount {
     }
 
     createAccount() {
-        httpManager.post('/sona/v1/users', {
+        httpManager.post('/sona/v1/users', JSON.stringify({
             userName: this.userName,
             firstName: this.firstName,
             lastName: this.lastName,
             gender: this.gender,
             emailAddress: this.emailAddress,
             password: this.password
-        }).then(() => {
+        }), [{ key: 'Content-Type', value: 'application/json' }]).then(() => {
             this.error = false;
             routing.navigate('login');
         }).catch(err => {

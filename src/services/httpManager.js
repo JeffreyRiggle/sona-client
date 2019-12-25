@@ -1,10 +1,8 @@
 class HttpManager {
     constructor() {
-        this.defaultHeaders = [{
-            key: 'Content-Type', value: 'application/json'
-        }];
+        this.defaultHeaders = [];
     }
-
+    
     addDefaultHeader(header) {
         this.defaultHeaders.push(header);
     }
@@ -22,11 +20,16 @@ class HttpManager {
         });
     }
 
-    _createHeaders() {
+    _createHeaders(incomingHeaders) {
         const headers = new Headers();
         this.defaultHeaders.forEach((header) => {
             headers.append(header.key, header.value);
         });
+
+        if (incomingHeaders) {
+            incomingHeaders.forEach(h => headers.append(h.key, h.value));
+        }
+
         return headers;
     }
 
@@ -35,13 +38,13 @@ class HttpManager {
         return this._makeRequest(request);
     }
 
-    put(uri, data) {
-        const request = new Request(uri, {method: 'PUT', body: data, headers: this._createHeaders()});
+    put(uri, data, headers) {
+        const request = new Request(uri, {method: 'PUT', body: data, headers: this._createHeaders(headers)});
         return this._makeRequest(request);
     }
 
-    post(uri, data) {
-        const request = new Request(uri, {method: 'POST', body: JSON.stringify(data), headers: this._createHeaders()});
+    post(uri, data, headers) {
+        const request = new Request(uri, {method: 'POST', body: data, headers: this._createHeaders(headers)});
         return this._makeRequest(request);
     }
 

@@ -1,18 +1,17 @@
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {HttpClient, Headers} from 'aurelia-http-client';
 import {Incident} from './incident';
 import {Attachment} from '../attachment/attachment';
 import {Attribute} from '../attribute/attribute';
 import notificationManager from '../notifications/sharednotificationmanager';
 import {EventEmitter} from '../common/EventEmitter';
+import httpManager from '../services/httpManager';
 
 @inject(EventAggregator)
 export class IncidentManager extends EventEmitter {
     constructor(EventAggregator) {
         super();
         this.eventAg = EventAggregator;
-        this.httpClient = new HttpClient();
         this.incidents = [];
         this._knownAttributes = [];
         this._setup();
@@ -25,22 +24,17 @@ export class IncidentManager extends EventEmitter {
     }
 
     _setup() {
-        this.httpClient.createRequest('/sona/v1/incidents')
-            .asGet()
-            .send()
-            .then(data => {
-                let incs = JSON.parse(data.response);
-
-                incs.forEach(incident => {
-                    this.incidents.push(this._convertIncident(incident));
-                });
-
-                if (incs.length > 0) {
-                    this._updateCurrentIncident(this.incidents[0]);
-                }
-            }).catch(err => {
-                notificationManager.addError('Unable to get incidents');
+        httpManager.get('/sona/v1/incidents').then(data => {
+            data.forEach(incident => {
+                this.incidents.push(this._convertIncident(incident));
             });
+
+            if (data.length > 0) {
+                this._updateCurrentIncident(this.incidents[0]);
+            }
+        }).catch(err => {
+            notificationManager.addError('Unable to get incidents');
+        });
     }
 
     _convertIncident(incident) {
@@ -63,22 +57,21 @@ export class IncidentManager extends EventEmitter {
 
         let inc = new Incident(incident.id, incident.reporter, incident.state, incident.description, attribs);
 
-        this.httpClient.createRequest('/sona/v1/' + incident.id + '/attachments')
-            .asGet()
-            .send()
-            .then(data => {
-                let attached = JSON.parse(data.response);
+        httpManager.get(`'/sona/v1/incidents/${incident.id}/attachments`).then(data => {
+            if (!data) {
+                return;
+            }
 
-                if (!attached) {
-                    return;
-                }
-
-                attached.forEach(attach => {
-                    inc.addAttachment(new Attachment(attach.filename, attach.time));
-                });
-            }).catch(error => {
-                notificationManager.addError('Unable to get attachments for ' + incident.id);
+            data.forEach(attach => {
+                inc.addAttachment(new Attachment(attach.filename, attach.time));
             });
+        }).catch(err => {
+            if (err.status == 404) {
+                return;
+            }
+
+            notificationManager.addError('Unable to get attachments for ' + incident.id);
+        });
 
         if (attributesChanged) {
             this.emit('knownAttributesChanged');
@@ -97,44 +90,31 @@ export class IncidentManager extends EventEmitter {
     }
 
     createIncident(incident) {
-        this.httpClient.createRequest('/sona/v1/create')
-        .asPost()
-        .withContent(
-            {
-                description: incident.description,
-                reporter: incident.reporter,
-                attributes: incident.convertAttributes()
-            }
-        )
-        .send()
-        .then(data => {
-            let incident = this._convertIncident(JSON.parse(data.response));
+        httpManager.post('/sona/v1/incidents', JSON.stringify({
+            description: incident.description,
+            reporter: incident.reporter,
+            attributes: incident.convertAttributes()
+        }), [{ key: 'Content-Type', value: 'application/json' }]).then(data => {
+            let incident = this._convertIncident(data);
             this.incidents.push(incident);
             this._updateCurrentIncident(incident);
             notificationManager.addNotification('Incident ' + incident.id + ' created');
-        })
-        .catch(error => {
+        }).catch(err => {
             notificationManager.addError('Unable to create incident.');
         });
     }
 
     getIncidents(filter) {
-        this.httpClient.createRequest('/sona/v1/incidents')
-        .asGet()
-        .withParams({filter: JSON.stringify(filter)})
-        .send()
-        .then(data => {
-            let incs = JSON.parse(data.response);
-
+        httpManager.get(`/sona/v1/incidents?filter=${JSON.stringify(filter)}`).then(data => {
             this.incidents = [];
-            incs.forEach(incident => {
+            data.forEach(incident => {
                 this.incidents.push(this._convertIncident(incident));
             });
 
-            if (incs.length > 0) {
+            if (data.length > 0) {
                 this._updateCurrentIncident(this.incidents[0]);
             }
-        }).catch(error => {
+        }).catch(err => {
             notificationManager.addError('Unable to get incidents.');
         });
     }
