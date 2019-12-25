@@ -1,4 +1,3 @@
-import './auth.less';
 import loginService from '../../services/loginService';
 import routing from '../../services/routing';
 

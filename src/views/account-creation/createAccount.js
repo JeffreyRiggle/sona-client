@@ -1,4 +1,3 @@
-import './createAccount.less';
 import httpManager from '../../services/httpManager';
 import routing from '../../services/routing';
 

@@ -125,3 +125,30 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.auth-form {
+    background-color: white;
+    margin: auto;
+    width: 50%;
+    text-align: center;
+
+    .entry {
+        display: flex;
+        justify-content: space-around;
+        padding: 8px;
+
+        label {
+            flex: 0 1 auto;
+            width: 25%;
+        }
+
+        .action {
+            flex: 1 1 auto;
+            max-width: 50%;
+        }
+    }
+
+    .reverse-flex {
+        flex-direction: row-reverse;
+    }
+}
