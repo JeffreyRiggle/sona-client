@@ -1,6 +1,8 @@
 class HttpManager {
     constructor() {
-        this.defaultHeaders = [];
+        this.defaultHeaders = [{
+            key: 'Content-Type', value: 'application/json'
+        }];
     }
 
     addDefaultHeader(header) {
@@ -39,7 +41,7 @@ class HttpManager {
     }
 
     post(uri, data) {
-        const request = new Request(uri, {method: 'POST', body: data, headers: this._createHeaders()});
+        const request = new Request(uri, {method: 'POST', body: JSON.stringify(data), headers: this._createHeaders()});
         return this._makeRequest(request);
     }
 
