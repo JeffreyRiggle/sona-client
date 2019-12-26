@@ -16,7 +16,7 @@ module.exports = function(config) {
         logLevel: config.LOG_INFO,
         webpack: webpackConfig,
         autoWatch: true,
-        browsers: ['Chrome'],
+        browsers: ['ChromeHeadless'],
         singleRun: true
     });
 };
