@@ -18,7 +18,7 @@ class LoginService {
     }
 
     login(emailAddress, password) {
-        return httpManager.post('/sona/v1/authenticate', JSON.stringify({ emailAddress, password }, [{ key: 'Content-Type', value: 'application/json' }])).then(response => {
+        return httpManager.post('/sona/v1/authenticate', JSON.stringify({ emailAddress, password }), [{ key: 'Content-Type', value: 'application/json' }]).then(response => {
             this.token = response.token;
             localStorage.setItem('auth', JSON.stringify({value: this.token}));
             this.setToken();

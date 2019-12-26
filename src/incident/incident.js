@@ -3,6 +3,7 @@ import {EventAggregator} from 'aurelia-event-aggregator';
 import notificationManager from '../notifications/sharednotificationmanager';
 import _ from 'underscore';
 import httpManager from '../services/httpManager';
+import loginService from '../services/loginService';
 
 export class Incident {
     constructor(id, reporter, state, description, attributes) {
@@ -68,7 +69,7 @@ export class Incident {
     }
 
     downloadAttachment(attachment) {
-        window.open(`/sona/v1/incidents/${this.id}/attachment/${attachment.displayName}`);
+        window.open(`/sona/v1/incidents/${this.id}/attachment/${attachment.displayName}?token=${loginService.token}`);
     }
 
     Update() {

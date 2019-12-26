@@ -57,7 +57,7 @@ export class IncidentManager extends EventEmitter {
 
         let inc = new Incident(incident.id, incident.reporter, incident.state, incident.description, attribs);
 
-        httpManager.get(`'/sona/v1/incidents/${incident.id}/attachments`).then(data => {
+        httpManager.get(`/sona/v1/incidents/${incident.id}/attachments`).then(data => {
             if (!data) {
                 return;
             }
