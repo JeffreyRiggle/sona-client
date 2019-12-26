@@ -6,15 +6,8 @@ This is a client used to display incidents tracked in sona. Sona is a support or
 Nodejs and npm should be installed.
 
 ### Building
-* Install yarn `npm install yarn`
-* download dependencies `yarn install`
-* run dev server `yarn run dev`
+* download dependencies `npm install`
+* run dev server `npm run dev`
 
 ### Testing
-* run `yarn test`
-
-## TODOS
-- get auth working
-- create pipeline
-- ?
-- profit
+* run `npm test`
