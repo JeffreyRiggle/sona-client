@@ -1,13 +1,23 @@
 import httpManager from './httpManager';
+import dayjs from 'dayjs';
 
 class LoginService {
     constructor() {
         this.token = localStorage.getItem('auth') || '';
 
-        if (this.token) {
-            this.token = JSON.parse(this.token).value;
-            this.setToken();
+        if (!this.token) {
+            return;
         }
+
+        const tokenInfo = JSON.parse(this.token);
+
+        if (!tokenInfo.timeout || tokenInfo.timeout <= Date.now()) {
+            localStorage.removeItem('auth');
+            return;
+        }
+
+        this.token = tokenInfo.value;
+        this.setToken();
     }
 
     setToken() {
@@ -20,7 +30,7 @@ class LoginService {
     login(emailAddress, password) {
         return httpManager.post('/sona/v1/authenticate', JSON.stringify({ emailAddress, password }), [{ key: 'Content-Type', value: 'application/json' }]).then(response => {
             this.token = response.token;
-            localStorage.setItem('auth', JSON.stringify({value: this.token}));
+            localStorage.setItem('auth', JSON.stringify({value: this.token, timeout: dayjs(Date.now()).add(3, 'hour').toDate()}));
             this.setToken();
         }).catch(err => {
             console.log(err);
