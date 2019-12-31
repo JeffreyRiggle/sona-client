@@ -4,7 +4,7 @@
         <dynamic-filter props.bind="searchProps"></dynamic-filter>
         <button click.delegate="preformSearch()">Search</button>
         <button click.delegate="enabledAdvanced()">Advanced</button>
-        <button click.delegate="createIncident()">Create</button>
+        <a class="create-button" route-href="route: createIncident">Create</a>
     </div>
     <div if.bind="advancedSearch" class="search-area">
         <span class="search-property">Search Expression</span>

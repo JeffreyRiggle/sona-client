@@ -1,6 +1,6 @@
 <template>
     <require from="../../attribute/attribute-viewer"></require>
-    <div class="auth-form">
+    <div class="create-incident-view auth-form">
         <h1>${header}</h1>
         <div class="entry">
             <label>Reporter</label>
@@ -11,7 +11,9 @@
             <input class="action" type="text" value.bind="incident.description">
         </div>
         <attribute-viewer incident.bind="incident"></attribute-viewer>
-        <button click.delegate="controller.cancel()">Cancel</button>
-        <button click.delegate="controller.ok(incident)">Create</button>
+        <div class="entry">
+            <button click.delegate="cancel()">Cancel</button>
+            <button click.delegate="create()">Create</button>
+        </div>
     </div>
 </template>
