@@ -1,0 +1,9 @@
+<template>
+    <require from="../../incident/incident-viewer"></require>
+    <div class="content-area" id="viewer" if.bind="found">
+        <incident-viewer incident.bind="incident"></incident-viewer>
+    </div>
+    <div if.bind="!found">
+        <h1>Incident Not Found</h1>
+    </div>
+</template>

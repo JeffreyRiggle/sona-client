@@ -2,8 +2,20 @@ class HttpManager {
     constructor() {
         this.defaultHeaders = [];
     }
-    
+
     addDefaultHeader(header) {
+        let found;
+
+        this.defaultHeaders.forEach((eheader, index) => {
+            if (eheader.key === header.key) {
+                found = index;
+            }
+        });
+
+        if (found) {
+            this.defaultHeaders.splice(found, 1);
+        }
+        
         this.defaultHeaders.push(header);
     }
 

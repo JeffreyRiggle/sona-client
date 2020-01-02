@@ -16,11 +16,11 @@ class LoginService {
             return;
         }
 
-        this.token = tokenInfo.value;
-        this.setToken();
+        this.setToken(tokenInfo.value);
     }
 
-    setToken() {
+    setToken(token) {
+        this.token = token;
         httpManager.addDefaultHeader({
             key: 'X-Sona-Token',
             value: this.token
@@ -29,9 +29,8 @@ class LoginService {
 
     login(emailAddress, password) {
         return httpManager.post('/sona/v1/authenticate', JSON.stringify({ emailAddress, password }), [{ key: 'Content-Type', value: 'application/json' }]).then(response => {
-            this.token = response.token;
             localStorage.setItem('auth', JSON.stringify({value: this.token, timeout: dayjs(Date.now()).add(3, 'hour').toDate()}));
-            this.setToken();
+            this.setToken(response.token);
         }).catch(err => {
             console.log(err);
             this.token = '';
