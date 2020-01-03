@@ -11,9 +11,13 @@ class LoginService {
 
         const tokenInfo = JSON.parse(this.token);
 
-        if (!tokenInfo.timeout || tokenInfo.timeout <= Date.now()) {
-            localStorage.removeItem('auth');
-            return;
+        if (tokenInfo.timeout) {
+            const tokenDate = dayjs(tokenInfo.timeout);
+
+            if (dayjs(new Date()).isAfter(tokenDate)) {
+                localStorage.removeItem('auth');
+                return;
+            }
         }
 
         this.setToken(tokenInfo.value);

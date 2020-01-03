@@ -3,7 +3,7 @@
     <div class="content-area" id="viewer" if.bind="found">
         <incident-viewer incident.bind="incident"></incident-viewer>
     </div>
-    <div if.bind="!found">
-        <h1>Incident Not Found</h1>
+    <div if.bind="!found" class="error-message">
+        <h1>${error}</h1>
     </div>
 </template>

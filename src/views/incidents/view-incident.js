@@ -2,10 +2,12 @@ import httpManager from "../../services/httpManager";
 import {Incident} from '../../incident/incident';
 import {Attribute} from '../../attribute/attribute';
 import loginService from "../../services/loginService";
+import './view-incident.less';
 
 export class ViewIncident {
     constructor() {
         this.found = false;
+        this.error = 'Initializing';
     }
 
     activate(value) {
@@ -27,7 +29,17 @@ export class ViewIncident {
             this.incident = new Incident(incident.id, incident.reporter, incident.state, incident.description, attributes);
             this.found = true;
         }).catch(err => {
-            console.log('Failed to find incident', err);
+            if (err.status === 404) {
+                this.error = 'Incident not found';
+                return;
+            }
+
+            if (err.status === 403) {
+                this.error = 'Cannot view Incident due to invalid permissions';
+                return;
+            }
+
+            this.error = 'Unable to view incident at this time';
         });
     }
 }
