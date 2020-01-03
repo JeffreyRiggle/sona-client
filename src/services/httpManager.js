@@ -12,10 +12,10 @@ class HttpManager {
             }
         });
 
-        if (found) {
+        if (found !== -1) {
             this.defaultHeaders.splice(found, 1);
         }
-        
+
         this.defaultHeaders.push(header);
     }
 
