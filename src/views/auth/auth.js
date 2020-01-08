@@ -1,5 +1,6 @@
 import loginService from '../../services/loginService';
 import routing from '../../services/routing';
+import './auth.less';
 
 export class Auth {
     constructor() {

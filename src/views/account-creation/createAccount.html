@@ -1,37 +1,24 @@
 <template>
-    <div class="auth-form">
+    <div class="create-account">
         <h1>Create Account</h1>
-        <div class="entry">
+        <div class="two-col-grid">
             <label>User Name</label>
             <input type="text" value.bind="userName" class="action"/>
-        </div>
-        <div class="entry">
             <label>First Name</label>
             <input type="text" value.bind="firstName" class="action"/>
-        </div>
-        <div class="entry">
             <label>Last Name</label>
             <input type="text" value.bind="lastName" class="action"/>
-        </div>
-        <div class="entry">
             <label>Gender</label>
             <select class="action">
                 <option repeat.for="gender of genders" value.bind="gender.value">${gender.display}</option>
             </select>
-        </div>
-        <div class="entry">
             <label>Email Address</label>
             <input type="text" value.bind="emailAddress" class="action"/>
-        </div>
-        <div class="entry">
             <label>Password</label>
             <input type="password" value.bind="password" class="action"/>
-        </div>
-        <div if.bind="error">Account Creation Failed</div>
-        <div class="entry reverse-flex">
-            <button click.delegate="createAccount()" class="action">Create Acount</button>
             <a route-href="route: login">Back to login</a>
+            <button click.delegate="createAccount()" class="action">Create Acount</button>
         </div>
-        
+        <div if.bind="error" class="create-error">Account Creation Failed</div>
     </div>
 </template>

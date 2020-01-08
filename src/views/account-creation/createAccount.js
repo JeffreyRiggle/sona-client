@@ -1,5 +1,6 @@
 import httpManager from '../../services/httpManager';
 import routing from '../../services/routing';
+import './createAccount.less';
 
 const genders = [
     { display: 'Female', value: 'F' },

@@ -1,17 +1,13 @@
 <template>
-    <div class="auth-form">
+    <div class="auth-view">
         <h1>Login to SONA server</h1>
-        <div class="entry">
+        <div class="two-col-grid">
             <label>Email</label>
             <input type="text" value.bind="email" class="action"/>
-        </div>
-        <div class="entry">
             <label>Password</label>
             <input type="password" value.bind="password" class="action"/>
-        </div>
-        <div class="entry reverse-flex">
-            <button click.delegate="login()" class="action">Login</button>
             <a route-href="route: createAccount">Create Account</a>
+            <button click.delegate="login()" class="action">Login</button>
         </div>
     </div>
 </template>
