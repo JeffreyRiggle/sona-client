@@ -25,9 +25,12 @@ export class IncidentManager extends EventEmitter {
 
     _setup() {
         httpManager.get('/sona/v1/incidents').then(data => {
+            const newIncidents = [];
             data.forEach(incident => {
-                this.incidents.push(this._convertIncident(incident));
+                newIncidents.push(this._convertIncident(incident));
             });
+
+            this.incidents = newIncidents;
 
             if (data.length > 0) {
                 this._updateCurrentIncident(this.incidents[0]);

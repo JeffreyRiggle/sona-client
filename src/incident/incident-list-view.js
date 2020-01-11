@@ -3,20 +3,17 @@ import _ from 'underscore';
 import {createAttributeConverter} from './attributeConverter';
 
 const defaultcolumns = [
-    { displayName: 'ID', property: 'id', selected: true },
-    { displayName: 'State', property: 'state', selected: true },
-    { displayName: 'Reporter', property: 'reporter', selected: true },
-    { displayName: 'Description', property: 'description', selected: false }
+    { displayName: 'ID', field: 'id' },
+    { displayName: 'State', field: 'state' },
+    { displayName: 'Reporter', field: 'reporter' },
+    { displayName: 'Description', field: 'description' }
 ];
 
 @customElement('incident-list-view')
 @bindable('incidentmanager')
 export class IncidentListView {
     constructor() {
-        this.listOptions = {
-            columns: _.union(defaultcolumns, this._getKnownColumns)
-        };
-
+        this.columns = _.union(defaultcolumns, this._getKnownColumns);
         this.updateKnownColumns = this._updateKnownColumns.bind(this)
     }
 
@@ -49,10 +46,9 @@ export class IncidentListView {
     _updateKnownColumns() {
         this.incidentmanager.knownAttributes.forEach(att => {
             if (!this._hasColumn(att)) {
-                this.listOptions.columns.push({
+                this.columns.push({
                     displayName: att, 
-                    property: att, 
-                    selected: false,
+                    property: att,
                     converter: createAttributeConverter(att)
                 });
             }
@@ -60,7 +56,7 @@ export class IncidentListView {
     }
 
     _hasColumn(col) {
-        var foundItems = _.filter(this.listOptions.columns, item => {
+        var foundItems = _.filter(this.columns, item => {
             return item.displayName === col;
         });
 

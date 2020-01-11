@@ -30,6 +30,7 @@
     "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
+    "ag-grid": "^18.1.2",
     "aurelia-bootstrapper": "^2.3.3",
     "aurelia-dialog": "^2.0.0-rc.6",
     "aurelia-event-aggregator": "^1.0.3",
