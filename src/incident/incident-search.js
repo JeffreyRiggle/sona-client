@@ -36,11 +36,11 @@ export class IncidentSearch {
 
         this.searchProps.forEach(v => {
             if (v.selected && v.searchValue) {
-                filterManager.updateSimpleFilter(v.searchId, v.searchValue);
+                this.filterManager.updateSimpleFilter(v.searchId, v.searchValue);
             }
         });
 
-        var filter = filterManager.generateSimpleFilter();
+        var filter = this.filterManager.generateSimpleFilter();
 
         if (filter.complexfilters.length <= 0) {
             this.incidentmanager.getIncidents();
