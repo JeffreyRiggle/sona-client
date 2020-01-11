@@ -32,12 +32,15 @@ class LoginService {
     }
 
     login(emailAddress, password) {
-        return httpManager.post('/sona/v1/authenticate', JSON.stringify({ emailAddress, password }), [{ key: 'Content-Type', value: 'application/json' }]).then(response => {
-            localStorage.setItem('auth', JSON.stringify({value: this.token, timeout: dayjs(Date.now()).add(3, 'hour').toDate()}));
-            this.setToken(response.token);
-        }).catch(err => {
-            console.log(err);
-            this.token = '';
+        return new Promise((resolve, reject) => {
+            httpManager.post('/sona/v1/authenticate', JSON.stringify({ emailAddress, password }), [{ key: 'Content-Type', value: 'application/json' }]).then(response => {
+                localStorage.setItem('auth', JSON.stringify({value: response.token, timeout: dayjs(Date.now()).add(3, 'hour').toDate()}));
+                this.setToken(response.token);
+                resolve();
+            }).catch(err => {
+                this.token = '';
+                reject(err);
+            });
         });
     }
 

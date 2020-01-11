@@ -3,6 +3,7 @@ import './editable-label.less';
 
 @customElement('editable-label')
 @bindable('item')
+@bindable('buttonClass')
 @inject(Element)
 export class EditableLabel {
     constructor(element) {

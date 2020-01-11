@@ -22,6 +22,6 @@ export class CreateIncident {
     }
 
     cancel() {
-        routing.navigate('login');
+        routing.navigate('home');
     }
 }
