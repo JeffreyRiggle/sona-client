@@ -20,9 +20,10 @@ export class Grid {
                 enablePivot: true,
                 sortable: true
             },
+            enableSorting: true,
+            enableColResize: true,
             onSelectionChanged: this.onSelectionChanged.bind(this),
-            rowSelection: 'single',
-            showToolPanel: true
+            rowSelection: 'single'
         };
     }
 
