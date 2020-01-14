@@ -1,6 +1,7 @@
 import {inject, bindable, customElement} from 'aurelia-framework';
 import _ from 'underscore';
 import {createAttributeConverter} from './attributeConverter';
+import routing from '../services/routing';
 
 const defaultcolumns = [
     { displayName: 'ID', field: 'id' },
@@ -65,5 +66,9 @@ export class IncidentListView {
 
     updateSelection(event) {
         this.incidentmanager.setSelected(event.detail.id);
+    }
+
+    openIncident(event) {
+        routing.navigate('viewIncident', { id: event.detail.id });
     }
 }

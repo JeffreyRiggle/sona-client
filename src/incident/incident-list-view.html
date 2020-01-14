@@ -3,5 +3,6 @@
     <grid
         column-definitions.bind="columns" 
         row-data.bind="incidentmanager.incidents"
-        selectedchanged.trigger="updateSelection($event)"></grid>
+        selectedchanged.trigger="updateSelection($event)"
+        doubleclick.trigger="openIncident($event)"></grid>
 </template>

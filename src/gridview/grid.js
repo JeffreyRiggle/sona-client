@@ -23,6 +23,7 @@ export class Grid {
             enableSorting: true,
             enableColResize: true,
             onSelectionChanged: this.onSelectionChanged.bind(this),
+            onCellDoubleClicked: this.onDoubleClick.bind(this),
             rowSelection: 'single'
         };
     }
@@ -44,6 +45,12 @@ export class Grid {
     onSelectionChanged(data) {
         const newRows = this.gridOptions.api.getSelectedRows();
         let e = new CustomEvent('selectedchanged', { detail: newRows[0] });
+        this.element.dispatchEvent(e);
+    }
+
+    onDoubleClick(data) {
+        const currentRow = this.gridOptions.api.getSelectedRows();
+        let e = new CustomEvent('doubleclick', { detail: currentRow[0] });
         this.element.dispatchEvent(e);
     }
 }

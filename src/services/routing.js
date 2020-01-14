@@ -7,8 +7,8 @@ class RouterManager {
         this.router = router;
     }
 
-    navigate(location) {
-        this.router && this.router.navigateToRoute(location);
+    navigate(location, params) {
+        this.router && this.router.navigateToRoute(location, params);
     }
 }
 
