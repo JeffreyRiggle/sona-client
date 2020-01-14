@@ -4,7 +4,13 @@ import {createAttributeConverter} from './attributeConverter';
 import routing from '../services/routing';
 
 const defaultcolumns = [
-    { displayName: 'ID', field: 'id' },
+    { 
+        displayName: 'ID',
+        field: 'id',
+        cellRenderer: (params) => {
+            return `<a href="#/viewIncident/${params.value}">${params.value}</a>`
+        }
+    },
     { displayName: 'State', field: 'state' },
     { displayName: 'Reporter', field: 'reporter' },
     { displayName: 'Description', field: 'description' }
