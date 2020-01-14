@@ -3,12 +3,13 @@
     <require from="../../incident/incident-viewer"></require>
     <require from="../../incident/incident-search"></require>
     <require from="../../notifications/notification-area"></require>
+    <require from="../../incident/incident-panel"></require>
     <notification-area></notification-area>
     <div class="content-container">
         <div class="content-area" id="listview">
             <incident-search incidentmanager.bind="incidentmanager"></incident-search>
             <incident-list-view incidentmanager.bind="incidentmanager"></incident-list-view>
         </div>
-        <div class="content-area" id="viewer"><incident-viewer incident.bind="incidentmanager.currentincident"></incident-viewer></div>
+        <incident-panel incidentmanager.bind="incidentmanager" if.bind="incidentmanager.currentincident && incidentmanager.currentincident.id"></incident-viewer>
     </div>
 </template>

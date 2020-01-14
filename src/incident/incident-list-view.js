@@ -5,15 +5,15 @@ import routing from '../services/routing';
 
 const defaultcolumns = [
     { 
-        displayName: 'ID',
+        headerName: 'ID',
         field: 'id',
         cellRenderer: (params) => {
             return `<a href="#/viewIncident/${params.value}">${params.value}</a>`
         }
     },
-    { displayName: 'State', field: 'state' },
-    { displayName: 'Reporter', field: 'reporter' },
-    { displayName: 'Description', field: 'description' }
+    { headerName: 'State', field: 'state' },
+    { headerName: 'Reporter', field: 'reporter' },
+    { headerName: 'Description', field: 'description' }
 ];
 
 @customElement('incident-list-view')

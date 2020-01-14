@@ -17,7 +17,6 @@ export class Grid {
         this.gridId = `grid-${++currId}`;
         this.gridOptions = {
             defaultColDef: {
-                enablePivot: true,
                 sortable: true
             },
             enableSorting: true,
