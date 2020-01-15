@@ -1,22 +1,22 @@
-<template>
+<template class="viewing-area">
     <require from="../gitviewer/git-issue-viewer"></require>
     <require from="../common/tooltip"></require>
     <div if.bind="hasGitIssue" class="viewer-header">
         <button click.delegate="showNotes()" 
-                class="viewer-notes-button"
+                class="viewer-button"
                 disabled.bind="!showGit"
                 tool-tip="text: Show Notes; location: right">
             <i class="fa fa-file-text-o"></i>
         </button>
         <button click.delegate="hideNotes()" 
-                class="viewer-git-button"
+                class="viewer-button"
                 disabled.bind="showGit"
                 tool-tip="text: Show Git; location: left">
             <i class="fa fa-github-alt"></i>
         </button>
     </div>
     <git-issue-viewer issue.bind="gitIssue" if.bind="showGit"></git-issue-viewer>
-    <div if.bind="!showGit">
+    <div if.bind="!showGit" class="description-area">
         ${incident.description}
     </div>
 </template>

@@ -1,0 +1,22 @@
+@import '../common.less';
+
+.attachment-viewer {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+
+    .attachment-header {
+        color: @textColor;
+        flex: 0 0 auto;
+    }
+
+    .attachment-container {
+        margin: 4px 4px 8px 4px;
+        flex: 1 1 auto;
+
+        .upload-attachments-button {
+            .common-button;
+            color: @addColor;
+        }
+    }
+}

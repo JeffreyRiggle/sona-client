@@ -1,7 +1,7 @@
 <template>
     <require from="./incident-viewer"></require>
     <div class="content-float incident-panel">
-        <div>
+        <div class="panel-header">
             <h2><button>x</button>${incidentmanager.currentincident.id}</h2>
         </div>
         <incident-viewer incident.bind="incidentmanager.currentincident"></incident-viewer>

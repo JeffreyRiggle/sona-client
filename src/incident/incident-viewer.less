@@ -1,5 +1,15 @@
 @import '../common.less';
 
+.incident-viewer {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+
+    .action-area, .incident-fields {
+        flex: 0 0 auto;
+    }
+}
+
 .viewer {
     border-width: 1px;
     border-radius: 3px;

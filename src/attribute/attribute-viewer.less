@@ -1,0 +1,35 @@
+@import '../common.less';
+
+.attribute-viewer {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+
+    .attribute-header {
+        color: @textColor;
+    }
+
+    .attribute-input-container {
+        display: flex;
+        flex: 1 1 auto;
+        padding: 5px;
+
+        .attribute-input {
+            min-width: 50px;
+            display: flex;
+            flex: 1 1 auto;
+            margin-right: 5px;
+            .common-input;
+        }
+
+        .add-attribute-btn {
+            flex: 0 0 auto;
+            .common-button;
+            color: @addColor;
+        }
+    }
+
+    .attribute-container {
+        margin: 4px 4px 8px 4px;
+    }
+}
