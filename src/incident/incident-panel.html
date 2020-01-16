@@ -2,7 +2,7 @@
     <require from="./incident-viewer"></require>
     <div class="content-float incident-panel" if.bind="shown">
         <div class="panel-header">
-            <h2><button click.delegate="hidePanel()" >x</button>${incidentmanager.currentincident.id}</h2>
+            <h2><button click.delegate="hidePanel()" class="common-button"><i class="fa fa-close"></i></button>Incident ${incidentmanager.currentincident.id}</h2>
         </div>
         <incident-viewer incident.bind="incidentmanager.currentincident"></incident-viewer>
     </div>
