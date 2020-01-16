@@ -10,6 +10,6 @@
             <incident-search incidentmanager.bind="incidentmanager"></incident-search>
             <incident-list-view incidentmanager.bind="incidentmanager"></incident-list-view>
         </div>
-        <incident-panel incidentmanager.bind="incidentmanager" if.bind="incidentmanager.currentincident && incidentmanager.currentincident.id"></incident-viewer>
+        <incident-panel incidentmanager.bind="incidentmanager" if.bind="incidentmanager.currentincident"></incident-viewer>
     </div>
 </template>
