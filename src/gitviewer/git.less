@@ -59,18 +59,19 @@
 
 git-issue-viewer {
     display: flex;
+    flex: 1 1 auto;
 
     .scrollarea {
         overflow: auto;
         flex: 1 1 auto;
-    }
 
-    .git-header {
-        flex: 0 0 auto;
-        padding-bottom: 10px;
-    }
+        .git-header {
+            flex: 0 0 auto;
+            padding-bottom: 8px;
+        }
 
-    .commentarea {
-        flex: 1 1 auto;
+        .commentarea {
+            flex: 1 1 auto;
+        }
     }
 }
