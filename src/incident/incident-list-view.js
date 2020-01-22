@@ -21,7 +21,7 @@ const defaultcolumns = [
 export class IncidentListView {
     constructor() {
         this.columns = _.union(defaultcolumns, this._getKnownColumns);
-        this.updateKnownColumns = this._updateKnownColumns.bind(this)
+        this.updateKnownColumns = this._updateKnownColumns.bind(this);
     }
 
     incidentmanagerChanged(newValue, oldValue) {
