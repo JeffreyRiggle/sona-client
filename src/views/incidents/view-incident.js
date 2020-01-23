@@ -1,5 +1,6 @@
 import httpManager from "../../services/httpManager";
 import {Incident} from '../../incident/incident';
+import {Attachment} from '../../attachment/attachment';
 import {Attribute} from '../../attribute/attribute';
 import loginService from "../../services/loginService";
 import './view-incident.less';
@@ -28,6 +29,22 @@ export class ViewIncident {
 
             this.incident = new Incident(incident.id, incident.reporter, incident.state, incident.description, attributes);
             this.found = true;
+
+            httpManager.get(`/sona/v1/incidents/${incident.id}/attachments`).then(data => {
+                if (!data) {
+                    return;
+                }
+    
+                data.forEach(attach => {
+                    this.incident.addAttachment(new Attachment(attach.filename, attach.time));
+                });
+            }).catch(err => {
+                if (err.status === 404) {
+                    return;
+                }
+    
+                console.log('Unable to get attachments for ', incident.id);
+            });
         }).catch(err => {
             if (err.status === 404) {
                 this.error = 'Incident not found';
