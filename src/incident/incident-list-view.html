@@ -4,5 +4,6 @@
         column-definitions.bind="columns" 
         row-data.bind="incidentmanager.incidents"
         selectedchanged.trigger="updateSelection($event)"
-        doubleclick.trigger="openIncident($event)"></grid>
+        doubleclick.trigger="openIncident($event)"
+        selected.bind="incidentmanager.currentincident"></grid>
 </template>

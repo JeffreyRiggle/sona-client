@@ -10,6 +10,7 @@ let currId = 0;
 
 @bindable('columnDefinitions')
 @bindable('rowData')
+@bindable('selected')
 @inject(Element)
 export class Grid {
     constructor(element) {
@@ -39,6 +40,22 @@ export class Grid {
 
     rowDataChanged(newValue) {
         this.gridOptions.api && this.gridOptions.api.setRowData(newValue);
+    }
+
+    selectedChanged(newValue, oldValue) {
+        if (!newValue || newValue === oldValue) {
+            return;
+        }
+
+        if (!this.gridOptions.api) {
+            return;
+        }
+
+        this.gridOptions.api.forEachNode((node) => {
+            if (node.data.id === newValue.id) {
+                this.gridOptions.api.selectNode(node, true);
+            }
+        });
     }
 
     onSelectionChanged(data) {
