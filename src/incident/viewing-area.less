@@ -1,0 +1,26 @@
+@import '../common.less';
+
+.viewing-area {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+
+    .viewer-header {
+        display: flex;
+        justify-content: space-between;
+        flex: 0 0 auto;
+
+        .viewer-button {
+            flex: 0 0 auto;
+            .common-button;
+
+            &:disabled {
+                .common-disabled-button;
+            }
+        }
+    }
+
+    .description-area {
+        flex: 1 1 auto;
+    }
+}

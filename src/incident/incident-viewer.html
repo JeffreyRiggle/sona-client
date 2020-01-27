@@ -1,10 +1,10 @@
-<template>
+<template class="incident-viewer">
     <require from="../attribute/attribute-viewer"></require>
     <require from="../attachment/attachment-viewer"></require>
     <require from="../common/editable-label"></require>
     <require from="../common/tooltip"></require>
     <require from="./viewing-area"></require>
-    <div>
+    <div class="action-area">
         <button click.delegate="resetIncident()" 
                 disabled.bind="!isDirty" 
                 class="common-button"
@@ -18,7 +18,7 @@
             <i class="fa fa-save"></i>
         </button>
     </div>
-    <div>
+    <div class="incident-fields">
         <p><span class="incident-attribute-header">Incident</span> <span class="incident-attribute-value">${incident.id}</span></p>
         <p><span class="incident-attribute-header">Reporter</span> <editable-label class="incident-attribute-value" item.two-way="incident.reporter" edited.trigger="valueEdited()"></editable-label></p>
         <p><span class="incident-attribute-header">State</span> <editable-label class="incident-attribute-value" item.two-way="incident.state" edited.trigger="valueEdited()"></editable-label></p>

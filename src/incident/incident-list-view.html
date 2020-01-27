@@ -1,8 +1,9 @@
 <template>
-    <require from="../gridview/gridview"></require>
-    <gridview 
-        options.bind="listOptions" 
-        items.bind="incidentmanager.incidents"
-        selected.bind="incidentmanager.currentincident"
-        selectedchanged.trigger="updateSelection($event)"></gridview>
+    <require from="../gridview/grid"></require>
+    <grid
+        column-definitions.bind="columns" 
+        row-data.bind="incidentmanager.incidents"
+        selectedchanged.trigger="updateSelection($event)"
+        doubleclick.trigger="openIncident($event)"
+        selected.bind="incidentmanager.currentincident"></grid>
 </template>

@@ -1,0 +1,25 @@
+@import '../common.less';
+
+.incident-panel {
+    background-color: @appbackground;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+    z-index: 100;
+
+    .panel-header {
+        padding-left: 4px;
+        background-color: @appbackgroundLight;
+        flex: 0 0 auto;
+
+        .common-button {
+            margin-right: 8px;
+        }
+    }
+
+    incident-viewer {
+        padding-top: 4px;
+        padding-left: 4px;
+        overflow-y: auto;
+    }
+}

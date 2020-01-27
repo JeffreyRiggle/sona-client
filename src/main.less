@@ -3,19 +3,22 @@
 html {
     height: 100%;
     background: @appbackground;
+    font-family: 'Courier New', Courier, monospace;
 }
-body {
-    height: 100%;
-}
+
 .content-area {
-    display: table-cell;
-    padding: 1em;
-    width: 50%;
-    height: 100%;
+    flex: 1 1 auto;
 }
+
+.content-float {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 40%;
+}
+
 .content-container {
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: row;
 }
@@ -41,7 +44,7 @@ body {
 }
 
 ux-dialog-container > div > div {
-    background-color: white;
+    background-color: @appbackgroundLight;
     padding: 24px;
 
     ai-dialog-body {

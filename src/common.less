@@ -16,7 +16,14 @@
     outline-color: #6bc9ff;
 }
 
+a.common-button {
+    text-decoration: none;
+}
+
 .common-button {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    padding: 4px;
     background-color: #485870;
     color: #0ba8fc;
     border: 1px solid #748092;
@@ -46,7 +53,7 @@
     padding: 10px 10px;
     position: absolute;
     white-space: nowrap;
-    z-index: 1;
+    z-index: 9999;
 }
 
 .top-tooltip-text {
@@ -124,4 +131,39 @@
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
+}
+
+.two-col-grid {
+    display: grid;
+    grid: repeat;
+    column-gap: 8px;
+    row-gap: 8px;
+    grid-template-columns: 45% 45%;
+}
+
+.auth-form {
+    background-color: white;
+    margin: auto;
+    width: 50%;
+    text-align: center;
+
+    .entry {
+        display: flex;
+        justify-content: space-around;
+        padding: 8px;
+
+        label {
+            flex: 0 1 auto;
+            width: 25%;
+        }
+
+        .action {
+            flex: 1 1 auto;
+            max-width: 50%;
+        }
+    }
+
+    .reverse-flex {
+        flex-direction: row-reverse;
+    }
 }

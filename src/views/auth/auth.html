@@ -1,0 +1,16 @@
+<template>
+    <div class="auth-view">
+        <h1>Login to SONA server</h1>
+        <div class="two-col-grid">
+            <label>Email</label>
+            <input type="text" value.bind="email" class="action"/>
+            <label>Password</label>
+            <input type="password" value.bind="password" class="action"/>
+            <a route-href="route: createAccount">Create Account</a>
+            <button click.delegate="login()" class="action">Login</button>
+        </div>
+        <div if.bind="error" class="error">
+            ${error}
+        </div>
+    </div>
+</template>

@@ -23,6 +23,7 @@ export class IncidentViewer {
         this.incident.reporter = this.initialValues['reporter'];
         this.incident.state = this.initialValues['state'];
         this.incident.description = this.initialValues['description'];
+        this.isDirty = false;
     }
 
     incidentChanged(newValue, oldValue) {

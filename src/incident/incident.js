@@ -1,9 +1,9 @@
-import {HttpClient, Headers} from 'aurelia-http-client';
 import {Attribute} from '../attribute/attribute';
-import {Attachment} from '../attachment/attachment';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import notificationManager from '../notifications/sharednotificationmanager';
 import _ from 'underscore';
+import httpManager from '../services/httpManager';
+import loginService from '../services/loginService';
 
 export class Incident {
     constructor(id, reporter, state, description, attributes) {
@@ -12,7 +12,6 @@ export class Incident {
         this.reporter = reporter;
         this.state = state;
         this.description = description;
-        this.httpClient = new HttpClient();
         this.attributes = attributes;
         
         this.attachments = [];
@@ -42,21 +41,14 @@ export class Incident {
             return;
         }
 
-        this.httpClient.createRequest('/sona/v1/' + this.id + '/attachment')
-        .asPost()
-        .withContent(rawData)
-        .send()
-        .then(data => {
-            let attached = JSON.parse(data.response);
-
-            if (attached) {
-                attachment.date = new Date(attached.time);
+        httpManager.post(`/sona/v1/incidents/${this.id}/attachment`, rawData).then(data => {
+            if (data) {
+                attachment.date = new Date(data.time);
             }
 
             this.attachments.push(attachment);
             notificationManager.addNotification('Succesfully attached ' + attachment.displayName);
-        })
-        .catch(error => {
+        }).catch(err => {
             notificationManager.addError('Unable to attach ' + attachment.displayName);
         });
     }
@@ -69,19 +61,15 @@ export class Incident {
 
         this.attachments.splice(index, 1);
 
-        this.httpClient.createRequest('/sona/v1/' + this.id + '/attachment/' + attachment.displayName)
-        .asDelete()
-        .send()
-        .then(data => {
+        httpManager.delete(`/sona/v1/incidents/${this.id}/attachments/${attachment.displayName}`).then(data => {
             notificationManager.addNotification('Removed attachment ' + attachment.displayName);
-        })
-        .catch(error => {
+        }).catch(err => {
             notificationManager.addError('Unable to remove attachment ' + attachment.displayName);
         });
     }
 
     downloadAttachment(attachment) {
-        window.open('/sona/v1/' + this.id + '/attachment/' + attachment.displayName);
+        window.open(`/sona/v1/incidents/${this.id}/attachment/${attachment.displayName}?token=${loginService.token}`);
     }
 
     Update() {
@@ -89,21 +77,14 @@ export class Incident {
             return;
         }
 
-        this.httpClient.createRequest('/sona/v1/' + this.id + '/update')
-        .asPut()
-        .withContent(
-            {
-                state: this.state,
-                description: this.description,
-                reporter: this.reporter,
-                attributes: this.convertAttributes()
-            })
-        .send()
-        .then(data => {
-            console.log('incident updated.');
+        httpManager.put(`/sona/v1/incidents/${this.id}`, JSON.stringify({
+            state: this.state,
+            description: this.description,
+            reporter: this.reporter,
+            attributes: this.convertAttributes()
+        }), [{ key: 'Content-Type', value: 'application/json' }]).then(data => {
             this.eventAggregator.publish('incidentupdated', this);
-        })
-        .catch(error => {
+        }).catch(err => {
             notificationManager.addError('Unable to update incident ' + this.id);
         });
     }

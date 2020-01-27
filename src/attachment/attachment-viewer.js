@@ -2,7 +2,7 @@ import {inject, bindable, customElement} from 'aurelia-framework';
 import {DialogService} from 'aurelia-dialog';
 import {UploadAttachments} from './upload-attachments';
 import {Attachment} from './attachment';
-import './attachment.less';
+import './attachment-viewer.less';
 
 @bindable('incident')
 @customElement('attachment-viewer')

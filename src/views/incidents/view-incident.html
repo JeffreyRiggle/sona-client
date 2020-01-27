@@ -1,0 +1,10 @@
+<template>
+    <require from="../../incident/incident-viewer"></require>
+    <h1 class="view-incident-header" if.bind="found"><a route-href="route: home">Home</a></h1>
+    <div class="viewer-content-area" id="viewer" if.bind="found">
+        <incident-viewer incident.bind="incident"></incident-viewer>
+    </div>
+    <div if.bind="!found" class="error-message">
+        <h1>${error}</h1>
+    </div>
+</template>

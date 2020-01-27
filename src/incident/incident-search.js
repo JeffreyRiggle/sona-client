@@ -1,7 +1,5 @@
 import {inject, bindable, customElement} from 'aurelia-framework';
 import {DialogService} from 'aurelia-dialog';
-import {Incident} from './incident';
-import {CreateIncident} from './create-incident';
 import {getSharedInstance} from './filter/filterManager';
 import './incident-search.less';
 
@@ -38,11 +36,11 @@ export class IncidentSearch {
 
         this.searchProps.forEach(v => {
             if (v.selected && v.searchValue) {
-                filterManager.updateSimpleFilter(v.searchId, v.searchValue);
+                this.filterManager.updateSimpleFilter(v.searchId, v.searchValue);
             }
         });
 
-        var filter = filterManager.generateSimpleFilter();
+        var filter = this.filterManager.generateSimpleFilter();
 
         if (filter.complexfilters.length <= 0) {
             this.incidentmanager.getIncidents();
@@ -67,20 +65,6 @@ export class IncidentSearch {
             }
 
             this.filterError = true;
-        });
-    }
-
-    createIncident() {
-        var incident = new Incident(undefined, '', '', '', []);
-        this.dialogService.open({viewModel: CreateIncident, model: incident})
-        .whenClosed(response => {
-            if (response.wasCancelled) {
-                console.log('Not uploading files since dialog was cancelled');
-            } else {
-                if (response.output) {
-                    this.incidentmanager.createIncident(incident);
-                }
-            }
         });
     }
 }
