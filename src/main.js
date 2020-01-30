@@ -1,10 +1,8 @@
-import {Aurelia, PLATFORM} from 'aurelia-framework';
-import './styleloader/loader';
+import {PLATFORM} from 'aurelia-pal';
 
 export function configure(aurelia) {
     aurelia.use
         .standardConfiguration()
-        .developmentLogging()
         .plugin(PLATFORM.moduleName('aurelia-dialog'), config => {
             config.useDefaults();
         });

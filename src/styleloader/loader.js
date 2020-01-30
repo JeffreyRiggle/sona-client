@@ -1,1 +1,0 @@
-import '../incident/incident.less';

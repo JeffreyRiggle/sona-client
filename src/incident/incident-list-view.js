@@ -1,7 +1,5 @@
-import {inject, bindable, customElement} from 'aurelia-framework';
-import _ from 'underscore';
-import {createAttributeConverter} from './attributeConverter';
-import routing from '../services/routing';
+import {bindable, customElement} from 'aurelia-framework';
+import './incident.less';
 
 const defaultcolumns = [
     { 

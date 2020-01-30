@@ -8,15 +8,16 @@ describe('Stage Attachment Item Component', () => {
   beforeEach(() => {
     component = StageComponent
       .withResources(PLATFORM.moduleName('attachment-item'))
-      .inView('<attachment-item></attachment-item>');
+      .inView('<attachment-item model.bind="attach"></attachment-item>')
+      .boundTo({attach: { displayName: 'testFile.txt', getFormatedTime: () => 'formatTime' }});
   });
 
   afterEach(() => component.dispose());
 
-  xit('should render', done => {
+  it('should render', done => {
     component.create(bootstrap).then(() => {
-      const view = component.element;
-      expect(view.textContent.trim()).toBe('Hello World!');
+        const view = component.element.querySelector('button');
+        expect(view.textContent.trim()).toBe('testFile.txt');
       done();
     }).catch(e => {
       fail(e);
