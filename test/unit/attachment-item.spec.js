@@ -7,7 +7,7 @@ describe('Stage Attachment Item Component', () => {
 
   beforeEach(() => {
     component = StageComponent
-      .withResources(PLATFORM.moduleName('attachment-item'))
+      .withResources(PLATFORM.moduleName('../../src/attachment/attachment-item'))
       .inView('<attachment-item model.bind="attach"></attachment-item>')
       .boundTo({attach: { displayName: 'testFile.txt', getFormatedTime: () => 'formatTime' }});
   });
