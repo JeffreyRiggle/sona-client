@@ -33,7 +33,7 @@ export class AttachmentViewer {
     }
 
     _uploadAttachment(file) {
-        var data = new FormData();
+        var data = new window.FormData();
         data.append("uploadfile", file);
         this.incident.addAttachment(new Attachment(file.name), data);
     }
