@@ -18,7 +18,7 @@ describe('Stage Atttibute Viewer Component', () => {
                     name: 'baz',
                     value: 'bu'
                 }
-            ]
+            ],
             removeAttribute: jest.fn(),
             addAttribute: jest.fn()
         }
