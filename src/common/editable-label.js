@@ -23,7 +23,7 @@ export class EditableLabel {
     }
 
     _raiseEdited() {
-        let e = new CustomEvent('edited', {detail: this.item });
+        let e = new window.CustomEvent('edited', {detail: this.item });
         this.element.dispatchEvent(e);
     }
 
