@@ -8,10 +8,6 @@ describe('EventEmitter', () => {
         callback = jest.fn();
     });
 
-    afterEach(() => {
-        callback.call = [];
-    })
-
     describe('when listener is registered', () => {
         beforeEach(() => {
             emitter.on('foo', callback);
@@ -33,7 +29,7 @@ describe('EventEmitter', () => {
             });
 
             it('should not invoke the callback', () => {
-                expect(callback.call.length).toBe(1); // TODO fix
+                expect(callback.call.length).toBe(1);
             });
         });
 
@@ -44,7 +40,7 @@ describe('EventEmitter', () => {
 
             it('should not invoke callbacks', () => {
                 emitter.emit('foo');
-                expect(callback.call.length).toBe(1); // TODO fix
+                expect(callback.call.length).toBe(1);
             });
         });
     });

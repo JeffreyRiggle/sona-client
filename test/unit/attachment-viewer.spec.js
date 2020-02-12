@@ -43,7 +43,7 @@ describe('Stage Attachment Viewer Component', () => {
     component.bootstrap(aurelia => {
         aurelia.use.standardConfiguration().plugin('aurelia-dialog');
         aurelia.container.registerInstance(DialogService, service);
-    })
+    });
   });
 
   afterEach(() => component.dispose());
