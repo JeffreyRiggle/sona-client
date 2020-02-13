@@ -1,7 +1,7 @@
-import {createNewInstance} from '../filterManager';
-import {Filter} from '../filter';
-import {ComplexFilter} from '../complexfilter';
-import {FilterRequest} from '../filterrequest';
+import {createNewInstance} from '../../src/incident/filter/filterManager';
+import {Filter} from '../../src/incident/filter/filter';
+import {ComplexFilter} from '../../src/incident/filter/complexfilter';
+import {FilterRequest} from '../../src/incident/filter/filterrequest';
 
 describe('FilterManager', function() {
     var manager;

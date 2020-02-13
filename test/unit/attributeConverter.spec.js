@@ -1,4 +1,4 @@
-import {createAttributeConverter} from '../attributeConverter';
+import {createAttributeConverter} from '../../src/incident/attributeConverter';
 
 describe('attributeConverter', function() {
     var converter, retVal, testVal;
