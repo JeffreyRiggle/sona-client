@@ -1,13 +1,12 @@
-import {inject, bindable, customElement} from 'aurelia-framework';
-import {HttpClient, Headers} from 'aurelia-http-client';
+import {bindable, customElement} from 'aurelia-framework';
 import {GitComment} from './git-comment';
 import './git.less';
+import httpManager from '../services/httpManager';
 
 @customElement('git-issue-viewer')
 @bindable('issue')
 export class GitIssueViewer {
     constructor() {
-        this.httpClient = new HttpClient();
         this.id = 'Loading content...';
         this.comments = [];
     }
@@ -37,38 +36,33 @@ export class GitIssueViewer {
     }
 
     _updateGitIssue(issue, callback) {
-        this.httpClient.createRequest(issue)
-            .withHeader('Access-Control-Allow-Origin', '*')
-            .asGet()
-            .send()
-            .then(data => {
-                var response = JSON.parse(data.response);
-                this.closed = response.closed_at;
-                this.id = response.title;
-                this.state = response.state;
-                this.reporter = response.user.login;
+        httpManager.get(issue, [{
+            key: 'Access-Control-Allow-Origin',
+            value: '*'
+        }]).then(data => {
+            this.closed = data.closed_at;
+            this.id = data.title;
+            this.state = data.state;
+            this.reporter = data.user.login;
 
-                this.comments.push(new GitComment(response.body, response.user.login, new Date(response.created_at).toString()));
-                this._getComments(issue + '/comments', callback);
-            });
+            this.comments.push(new GitComment(data.body, data.user.login, new Date(data.created_at).toString()));
+            this._getComments(issue + '/comments', callback);
+        });
     }
 
     _getComments(url, callback) {
-        this.httpClient.createRequest(url)
-            .withHeader('Access-Control-Allow-Origin', '*')
-            .asGet()
-            .send()
-            .then(data => {
-                var response = JSON.parse(data.response);
-
-                response.forEach(i => {
-                    this.comments.push(new GitComment(i.body, i.user.login, new Date(i.created_at).toString()));
-                });
-
-                if (callback) {
-                    callback();
-                }
+        httpManager.get(url, [{
+            key: 'Access-Control-Allow-Origin',
+            value: '*'
+        }]).then(data => {
+            data.forEach(i => {
+                this.comments.push(new GitComment(i.body, i.user.login, new Date(i.created_at).toString()));
             });
+
+            if (callback) {
+                callback();
+            }
+        });
     }
 
     viewInGit() {
