@@ -1,6 +1,7 @@
 {
     "moduleNameMapper": {
-      "^aurelia-binding$": "<rootDir>/node_modules/aurelia-binding"
+      "^aurelia-binding$": "<rootDir>/node_modules/aurelia-binding",
+      ".*css$": "<rootDir>/test/stub.css"
     },
     "modulePaths": [
       "<rootDir>/src",
