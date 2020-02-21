@@ -7,6 +7,7 @@ import './incident-panel.less';
 @inject(IncidentManager, EventAggregator)
 export class IncidentPanel {
     constructor(IncidentManager, EventAggregator) {
+        console.log(IncidentManager);
         this.incidentmanager = IncidentManager;
         this.eventAg = EventAggregator;
         this.shown = !!this.incidentmanager.currentincident;

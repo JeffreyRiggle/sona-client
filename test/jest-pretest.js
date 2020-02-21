@@ -13,3 +13,16 @@ global.Window = function() {
 global.navigator = {
     userAgent: 'chrome'
 };
+
+global.localStorage = {
+    getItem: () => {},
+    setItem: () => {}
+};
+
+global.Request = function() {
+
+};
+
+global.Headers = function() {
+
+};
