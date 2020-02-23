@@ -85,10 +85,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new AureliaPlugin({
-      dist: 'es2015',
-      features: { ie: false, svg: false, unparser: false, polyfills: "esnext" }
-    }),
+    new AureliaPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',

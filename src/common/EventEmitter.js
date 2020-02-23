@@ -13,7 +13,7 @@ export class EventEmitter {
 
     removeListener(event, listener) {
         if (typeof this.events[event] === 'object') {
-            let idx = indexOf(this.events[event], listener);
+            let idx = this.events[event].indexOf(listener);
 
             if (idx > -1) {
                 this.events[event].splice(idx, 1);

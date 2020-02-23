@@ -1,15 +1,11 @@
-import {inject, bindable, customElement} from 'aurelia-framework';
-import {DialogService} from 'aurelia-dialog';
+import {bindable, customElement} from 'aurelia-framework';
 import {getSharedInstance} from './filter/filterManager';
 import './incident-search.less';
 
 @customElement('incident-search')
 @bindable('incidentmanager')
-@inject(DialogService)
 export class IncidentSearch {
-
-    constructor(dialogService) {
-        this.dialogService = dialogService;
+    constructor() {
         this.filterManager = getSharedInstance();
         this.searchExpression = '';
         this.searchProps = [

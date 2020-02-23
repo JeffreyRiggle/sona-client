@@ -15,6 +15,7 @@ export class UploadAttachments {
     }
 
     attachFile(event) {
+        console.log('Got change event', event);
         if (!event.target || !event.target.files) {
             return;
         }

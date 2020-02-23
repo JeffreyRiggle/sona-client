@@ -32,11 +32,14 @@ class HttpManager {
         });
     }
 
-    _createHeaders(incomingHeaders) {
+    _createHeaders(incomingHeaders, removeDefault) {
         const headers = new Headers();
-        this.defaultHeaders.forEach((header) => {
-            headers.append(header.key, header.value);
-        });
+
+        if (!removeDefault) {
+            this.defaultHeaders.forEach((header) => {
+                headers.append(header.key, header.value);
+            });
+        }
 
         if (incomingHeaders) {
             incomingHeaders.forEach(h => headers.append(h.key, h.value));
@@ -45,8 +48,8 @@ class HttpManager {
         return headers;
     }
 
-    get(uri) {
-        const request = new Request(uri, {method: 'GET', headers: this._createHeaders()});
+    get(uri, headers, removeDefault) {
+        const request = new Request(uri, {method: 'GET', headers: this._createHeaders(headers, removeDefault)});
         return this._makeRequest(request);
     }
 

@@ -1,6 +1,6 @@
-require('font-awesome/css/font-awesome.min.css');
+import 'font-awesome/css/font-awesome.min.css';
 import './main.less';
-import { PLATFORM } from 'aurelia-framework';
+import { PLATFORM } from 'aurelia-pal';
 import routingManager from './services/routing';
 
 export class App {

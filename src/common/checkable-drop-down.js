@@ -45,9 +45,9 @@ export class CheckableDropDown {
         var e;
 
         if (item.selected) {
-            e = new CustomEvent('item-checked', {detail: item});
+            e = new window.CustomEvent('item-checked', {detail: item});
         } else {
-            e = new CustomEvent('item-unchecked', {detail: item});
+            e = new window.CustomEvent('item-unchecked', {detail: item});
         }
 
         this.element.dispatchEvent(e);

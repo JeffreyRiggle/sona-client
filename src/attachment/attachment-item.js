@@ -24,12 +24,12 @@ export class AttachmentItem {
     }
 
     remove() {
-        let e = new CustomEvent('removed', { detail: this.model });
+        let e = new window.CustomEvent('removed', { detail: this.model });
         this.element.dispatchEvent(e);
     }
 
     download() {
-        let e = new CustomEvent('download', {detail: this.model });
+        let e = new window.CustomEvent('download', {detail: this.model });
         this.element.dispatchEvent(e);
     }
 }
