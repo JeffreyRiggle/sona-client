@@ -21,7 +21,7 @@ describe('Stage Incident Panel Component', () => {
 
     component = StageComponent
       .withResources(PLATFORM.moduleName('../../src/incident/incident-panel'))
-      .inView('<incident-panel></incident-list-view>');
+      .inView('<incident-panel></incident-panel>');
 
     component.bootstrap(aurelia => {
       aurelia.use.standardConfiguration();
