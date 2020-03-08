@@ -26,8 +26,10 @@
     "jest-transform-stub": "^2.0.0",
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.8.0",
+    "protractor": "^5.4.3",
     "style-loader": "^0.16.1",
     "url-loader": "^2.1.0",
+    "webdriver-manager": "^12.1.7",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.8.0"
@@ -55,6 +57,7 @@
   },
   "scripts": {
     "test": "jest .",
+    "test:e2e": "protractor test/conf.js",
     "dev": "webpack-dev-server --hot --inline",
     "dev:docker": "npm run build && sudo docker run -p 80:80 sonaclient/nginx:latest",
     "build:local": "webpack",
