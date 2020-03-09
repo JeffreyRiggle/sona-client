@@ -15,8 +15,8 @@ describe('logging in', () => {
 
         await browser.wait(protractor.ExpectedConditions.visibilityOf(element.all(by.css('.action')).first()), 10000, 'Input never shown');
         const inputs = element.all(by.css('.action'));
-        inputs.first().sendKeys('a@b.c');
-        inputs.get(1).sendKeys('admin');
+        inputs.first().sendKeys('something@somewhere.com');
+        inputs.get(1).sendKeys('itsasecret');
 
         element(by.css('button')).click();
         await browser.wait(protractor.ExpectedConditions.visibilityOf(element.all(by.css('.sona-grid')).first()), 10000, 'Login Failed');
@@ -27,7 +27,7 @@ describe('logging in', () => {
 
         await browser.wait(protractor.ExpectedConditions.visibilityOf(element.all(by.css('.action')).first()), 10000, 'Input never shown');
         let inputs = element.all(by.css('.action'));
-        inputs.first().sendKeys('a@b.c');
+        inputs.first().sendKeys('something@somewhere.com');
         inputs.get(1).sendKeys('foobar');
 
         element(by.css('button')).click();
