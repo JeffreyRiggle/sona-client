@@ -24,36 +24,36 @@ jobs:
     - name: Test
       run: npm run test
 
-    e2e:
-      name: e2e
-      runs-on: ubuntu-latest
-      steps:
+  e2e:
+    name: e2e
+    runs-on: ubuntu-latest
+    steps:
   
-      - name: Install node
-        uses: actions/setup-node@v1
-        with:
-            node-version: '10.x'
+    - name: Install node
+      uses: actions/setup-node@v1
+      with:
+          node-version: '10.x'
   
-      - name: Check out code
-        uses: actions/checkout@v1
-      
-      - name: Install
-        run: npm ci
+    - name: Check out code
+      uses: actions/checkout@v1
+    
+    - name: Install
+      run: npm ci
   
-      - name: Build
-        run: npm run dev &
+    - name: Build
+      run: npm run dev &
   
-      - name: Start Server
-        run: |
-          config=`cat RuntimeConfig.json`
-          docker pull jeffriggle/sona-server:master
-          docker run -i -e CONFIG="$config" -p 8080:8080 jeffriggle/sona-server:master &
-        working-directory: ./test
+    - name: Start Server
+      run: |
+        config=`cat RuntimeConfig.json`
+        docker pull jeffriggle/sona-server:master
+        docker run -i -e CONFIG="$config" -p 8080:8080 jeffriggle/sona-server:master &
+      working-directory: ./test
 
-      - name: Start WebDriver
-        run: |
-          webdriver-manager update
-          webdriver-manager start
+    - name: Start WebDriver
+      run: |
+        webdriver-manager update
+        webdriver-manager start
 
-      - name: Test
-        run: npm run test:e2e
+    - name: Test
+      run: npm run test:e2e
