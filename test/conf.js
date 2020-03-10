@@ -4,6 +4,9 @@ exports.config = {
     specs: ['e2e/auth-spec.js'],
     capabilities: {
         browserName: 'chrome',
+        chromeOptions: {
+            args: ["--disable-dev-shm-usage"]
+        },
         maxInstances: 1,
         count: 1
     }
