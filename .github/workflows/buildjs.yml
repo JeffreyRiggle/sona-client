@@ -50,9 +50,5 @@ jobs:
         docker run -i -e CONFIG="$config" -p 8080:8080 jeffriggle/sona-server:master &
       working-directory: ./test
 
-    - name: Install Webdriver
-      run: |
-        apt-get install chromiumdriver
-
     - name: Test
       run: npm run test:e2e
