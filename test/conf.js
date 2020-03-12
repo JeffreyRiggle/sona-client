@@ -4,7 +4,7 @@ exports.config = {
     capabilities: {
         browserName: 'chrome',
         chromeOptions: {
-            args: ["--disable-dev-shm-usage"]
+            args: ['--disable-dev-shm-usage', '--headless', '--no-sandbox']
         },
         maxInstances: 1,
         count: 1
