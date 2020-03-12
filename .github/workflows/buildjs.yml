@@ -51,4 +51,6 @@ jobs:
       working-directory: ./test
 
     - name: Test
-      run: npm run test:e2e
+      run: |
+        export TEST_MODE='ci'
+        npm run test:e2e
