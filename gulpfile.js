@@ -8,12 +8,6 @@ function updateWebDriver(callback) {
     }).once('close', callback);
 }
 
-function startWebDriver() {
-    return spawn('webdriver-manager', ['start'], {
-        stdio: 'inherit'
-    });;
-}
-
 function testE2E() {
     return src(['./test/e2e/*.js'])
       .pipe(protractor({
