@@ -18,6 +18,7 @@
     "css-loader": "^3.2.0",
     "file-loader": "^1.1.11",
     "gulp": "^4.0.2",
+    "gulp-protractor": "^4.1.1",
     "html-loader": "^0.5.5",
     "html-webpack-loader": "0.0.5",
     "html-webpack-plugin": "^3.2.0",
@@ -26,6 +27,7 @@
     "jest-transform-stub": "^2.0.0",
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.8.0",
+    "protractor": "^5.4.3",
     "style-loader": "^0.16.1",
     "url-loader": "^2.1.0",
     "webpack": "^4.41.4",
@@ -55,6 +57,7 @@
   },
   "scripts": {
     "test": "jest .",
+    "test:e2e": "gulp testE2E",
     "dev": "webpack-dev-server --hot --inline",
     "dev:docker": "npm run build && sudo docker run -p 80:80 sonaclient/nginx:latest",
     "build:local": "webpack",

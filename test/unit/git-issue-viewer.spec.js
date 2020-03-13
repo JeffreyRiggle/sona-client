@@ -45,9 +45,11 @@ describe('Stage Git Issue Viewer Component', () => {
 
   it('should render', done => {
     component.create(bootstrap).then(() => {
-      const view = component.element.querySelector('h1');
-      expect(view.textContent.trim()).toBe('Some issue');
-      done();
+      setTimeout(() => {
+        const view = component.element.querySelector('h1');
+        expect(view.textContent.trim()).toBe('Some issue');
+        done();
+      }, 100);
     }).catch(e => {
       fail(e);
       done();
