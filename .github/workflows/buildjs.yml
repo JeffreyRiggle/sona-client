@@ -62,7 +62,7 @@ jobs:
 
     - name: Start Web Server
       run: |
-        docker run -i -e CONFIG="$config" -p 8080:8080 --network mynet jeffriggle/sona-client:"$GITHUB_SHA" &
+        docker run -i -e CONFIG="$config" -p 80:80 --network mynet jeffriggle/sona-client:"$GITHUB_SHA" &
 
     - name: Test
       run: |
