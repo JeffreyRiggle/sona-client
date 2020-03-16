@@ -1,4 +1,5 @@
 const { browser, element } = require("../../node_modules/protractor/built/index");
+const { config } = require('../testConfig');
 
 describe('logging in', () => {
     beforeEach(() => {
@@ -11,7 +12,7 @@ describe('logging in', () => {
     });
 
     it('the admin should be able to log in', async () => {
-        browser.get('http://localhost:3000/');
+        browser.get(config.webServerAddress);
 
         await browser.wait(protractor.ExpectedConditions.visibilityOf(element.all(by.css('.action')).first()), 10000, 'Input never shown');
         const inputs = element.all(by.css('.action'));
@@ -23,7 +24,7 @@ describe('logging in', () => {
     });
 
     it('invalid auth should fail', async () => {
-        browser.get('http://localhost:3000/');
+        browser.get(config.webServerAddress);
 
         await browser.wait(protractor.ExpectedConditions.visibilityOf(element.all(by.css('.action')).first()), 10000, 'Input never shown');
         let inputs = element.all(by.css('.action'));
