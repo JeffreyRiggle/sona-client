@@ -57,12 +57,12 @@ jobs:
         config=`cat RuntimeConfig.json`
         docker pull jeffriggle/sona-server:master
         docker network create mynet
-        docker run -i -e CONFIG="$config" -p 8080:8080 --network mynet jeffriggle/sona-server:master &
+        docker run -i -e CONFIG="$config" -p 8080:8080 --network mynet jeffriggle/sona-server:master --name sonaserver &
       working-directory: ./test
 
     - name: Start Web Server
       run: |
-        docker run -i -p 80:80 --network mynet jeffriggle/sona-client:"$GITHUB_SHA" &
+        docker run -i -e SONA_URL http://sonaserver:8000/ -p 80:80 --network mynet jeffriggle/sona-client:"$GITHUB_SHA" &
 
     - name: Test
       run: |
