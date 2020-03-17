@@ -57,7 +57,7 @@ jobs:
         config=`cat RuntimeConfig.json`
         docker pull jeffriggle/sona-server:master
         docker network create mynet
-        docker run -i -e CONFIG="$config" -p 8080:8080 --network mynet jeffriggle/sona-server:master --name sonaserver &
+        docker run -i -e CONFIG="$config" -p 8080:8080 --network mynet --name sonaserver jeffriggle/sona-server:master &
       working-directory: ./test
 
     - name: Start Web Server
