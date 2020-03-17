@@ -62,7 +62,7 @@ jobs:
 
     - name: Start Web Server
       run: |
-        docker run -i -e SONA_URL http://sonaserver:8000/ -p 80:80 --network mynet jeffriggle/sona-client:"$GITHUB_SHA" &
+        docker run -i -e SONA_URL http://sonaserver:8080/ -p 80:80 --network mynet jeffriggle/sona-client:"$GITHUB_SHA" &
 
     - name: Test
       run: |
