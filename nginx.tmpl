@@ -9,7 +9,7 @@ http {
         }
 
         location /sona {
-            proxy_pass ${SONA_URL};
+            proxy_pass ${SONA_URL}/sona;
         }
 
         location / {
