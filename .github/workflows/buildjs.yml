@@ -19,7 +19,7 @@ jobs:
       run: npm ci
 
     - name: Build
-      run: npm run build:local
+      run: npm run build
 
     - name: Test
       run: npm run test
@@ -41,16 +41,45 @@ jobs:
       run: npm ci
   
     - name: Build
-      run: npm run dev &
-  
+      run: |
+        BRANCH=$(echo ${GITHUB_REF} | sed -e "s/refs\/heads\///g" | sed -e "s/\//-/g")
+        npm run build
+
+        docker build . -t jeffriggle/sona-client:"$GITHUB_SHA"
+        if ["${BRANCH}" = "master"]; then
+          docker build . -t jeffriggle/sona-client:latest
+        else
+          docker build . -t jeffriggle/sona-client:"${BRANCH}"
+        fi
+
     - name: Start Server
       run: |
         config=`cat RuntimeConfig.json`
         docker pull jeffriggle/sona-server:master
-        docker run -i -e CONFIG="$config" -p 8080:8080 jeffriggle/sona-server:master &
+        docker network create mynet
+        docker run -i -e CONFIG="$config" -p 8080:8080 --network mynet --name sonaserver jeffriggle/sona-server:master &
       working-directory: ./test
+
+    - name: Start Web Server
+      run: |
+        docker run -i -e SONA_URL="http://sonaserver:8080" -p 80:80 --network mynet jeffriggle/sona-client:"$GITHUB_SHA" &
 
     - name: Test
       run: |
         export TEST_MODE='ci'
         npm run test:e2e
+
+    - name: Publish
+      env:
+        dockerpassword: ${{ secrets.DOCKER }}
+        dockeruser: ${{ secrets.DOCKERUSER }}
+      run: |
+        BRANCH=$(echo ${GITHUB_REF} | sed -e "s/refs\/heads\///g" | sed -e "s/\//-/g")
+        docker login -p $dockerpassword -u $dockeruser
+        docker push jeffriggle/sona-client:"$GITHUB_SHA"
+
+        if ["${BRANCH}" = "master"]; then
+          docker push jeffriggle/sona-client:latest
+        else
+          docker push jeffriggle/sona-client:"${BRANCH}"
+        fi

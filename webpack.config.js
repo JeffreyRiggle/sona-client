@@ -4,13 +4,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { AureliaPlugin } = require('aurelia-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const production = process.env.NODE_ENV !== 'development';
+console.log('Is production? ', production);
+
 module.exports = {
-  mode: 'development',
-  entry: 'aurelia-bootstrapper',
+  mode: production ? 'production' : 'development',
+  entry: {
+    app: ['aurelia-bootstrapper']
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
-    filename: 'bundle.js'
+    publicPath: '',
+    filename: production ? '[name].[chunkhash].bundle.js' : '[name].[hash].bundle.js',
+    sourceMapFilename: production ? '[name].[chunkhash].bundle.map' : '[name].[hash].bundle.map',
+    chunkFilename: production ? '[name].[chunkhash].chunk.js' : '[name].[hash].chunk.js'
   },
   resolve: {
     extensions: ['.ts', '.js'],
@@ -38,7 +45,7 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: process.env.NODE_ENV === 'development'
+              hmr: !production
             }
           },
           'css-loader'
@@ -46,12 +53,11 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        exclude: /node_modules/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: process.env.NODE_ENV === 'development'
+              hmr: !production
             }
           },
           'css-loader',
@@ -87,13 +93,15 @@ module.exports = {
   plugins: [
     new AureliaPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
-      ignoreOrder: false
+      filename: production ? 'css/[name].[contenthash].bundle.css' : 'css/[name].[hash].bundle.css',
+      chunkFilename: production ? 'css/[name].[contenthash].chunk.css' : 'css/[name].[hash].chunk.css'
     }), 
     new HtmlWebpackPlugin({
-        template: '!html-webpack-plugin/lib/loader!index.html',
-        filename: 'index.html'
+        template: 'index.ejs',
+        filename: 'index.html',
+        metadata: {
+          title: 'Sona Client'
+        }
     })
   ],
   devServer: {

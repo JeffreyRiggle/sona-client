@@ -1,0 +1,22 @@
+events {}
+
+http {
+    server {
+        listen 80;
+
+        location /repos {
+            proxy_pass https://api.github.com/;
+        }
+
+        location /sona {
+            proxy_pass ${SONA_URL}/sona;
+        }
+
+        location / {
+            root /site;
+            index index.html;
+
+            include /etc/nginx/mime.types;
+        }
+    }
+}
