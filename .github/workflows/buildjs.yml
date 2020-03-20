@@ -68,3 +68,18 @@ jobs:
       run: |
         export TEST_MODE='ci'
         npm run test:e2e
+
+    - name: Publish
+      env:
+        dockerpassword: ${{ secrets.DOCKER }}
+        dockeruser: ${{ secrets.DOCKERUSER }}
+      run: |
+        BRANCH=$(echo ${GITHUB_REF} | sed -e "s/refs\/heads\///g" | sed -e "s/\//-/g")
+        docker login -p $dockerpassword -u $dockeruser
+        docker push jeffriggle/sona-client:"$GITHUB_SHA"
+
+        if ["${BRANCH}" = "master"]; then
+          docker push jeffriggle/sona-client:latest
+        else
+          docker push jeffriggle/sona-client:"${BRANCH}"
+        fi
