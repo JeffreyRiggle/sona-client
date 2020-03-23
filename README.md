@@ -3,7 +3,7 @@ This is a client used to display incidents tracked in sona. Sona is a support or
 
 ## Getting Started
 ### Prerequisists
-Nodejs and npm should be installed.
+Nodejs and npm should be installed. [https://github.com/JeffreyRiggle/sona-server](Sona server) needs to be running.
 
 ### Building
 * download dependencies `npm install`
