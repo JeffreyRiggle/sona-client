@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { AureliaPlugin } = require('aurelia-webpack-plugin');
@@ -106,6 +107,9 @@ module.exports = {
   ],
   devServer: {
     port: 3000,
+    https: true,
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.crt'),
     proxy: {
       '/repos' : {
         target: 'https://api.github.com/',
