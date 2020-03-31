@@ -2,7 +2,9 @@ FROM nginx:alpine
 
 COPY ./dist /site
 COPY nginx.tmpl /etc/nginx/nginx.tmpl
+COPY start.sh start.sh
 
-EXPOSE 80
+EXPOSE 80 443
+RUN [ "chmod", "+x", "start.sh" ]
 
-CMD /bin/sh -c "envsubst < /etc/nginx/nginx.tmpl > /etc/nginx/nginx.conf && nginx -g 'daemon off;' || cat /etc/nginx/nginx.conf"
+CMD /bin/sh -c "./start.sh"
