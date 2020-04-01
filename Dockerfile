@@ -6,4 +6,6 @@ COPY start.sh /start.sh
 
 EXPOSE 80 443
 
+RUN [ "chmod", "+x", "/start.sh" ]
+
 ENTRYPOINT [ "/start.sh" ]
