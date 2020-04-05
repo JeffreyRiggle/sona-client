@@ -1,0 +1,24 @@
+events {}
+
+http {
+    server {
+        listen 443 ssl;
+        ssl_certificate server.crt;
+        ssl_certificate_key server.key;
+
+        location /repos {
+            proxy_pass https://api.github.com/;
+        }
+
+        location /sona {
+            proxy_pass ${SONA_URL}/sona;
+        }
+
+        location / {
+            root /site;
+            index index.html;
+
+            include /etc/nginx/mime.types;
+        }
+    }
+}
