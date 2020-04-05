@@ -107,9 +107,6 @@ module.exports = {
   ],
   devServer: {
     port: 3000,
-    https: true,
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.crt'),
     proxy: {
       '/repos' : {
         target: 'https://api.github.com/',
