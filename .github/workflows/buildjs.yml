@@ -8,12 +8,13 @@ jobs:
     steps:
 
     - name: Install node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
-          node-version: '10.x'
+        node-version-file: '.nvmrc'
+        cache: 'npm'
 
     - name: Check out code
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
     
     - name: Install
       run: npm ci
@@ -30,12 +31,13 @@ jobs:
     steps:
   
     - name: Install node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
-          node-version: '10.x'
-  
+        node-version-file: '.nvmrc'
+        cache: 'npm'
+
     - name: Check out code
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
     
     - name: Install
       run: npm ci
