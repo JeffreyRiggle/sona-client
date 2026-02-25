@@ -16,9 +16,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '',
-    filename: production ? '[name].[chunkhash].bundle.js' : '[name].[hash].bundle.js',
-    sourceMapFilename: production ? '[name].[chunkhash].bundle.map' : '[name].[hash].bundle.map',
-    chunkFilename: production ? '[name].[chunkhash].chunk.js' : '[name].[hash].chunk.js'
+    filename: production ? '[name].[hash].bundle.js' : '[name].[hash].bundle.js',
+    sourceMapFilename: production ? '[name].[hash].bundle.map' : '[name].[hash].bundle.map',
+    chunkFilename: production ? '[name].[hash].chunk.js' : '[name].[hash].chunk.js'
   },
   resolve: {
     extensions: ['.ts', '.js'],
@@ -49,7 +49,12 @@ module.exports = {
               hmr: !production
             }
           },
-          'css-loader'
+          {
+            loader: 'css-loader',
+            options: {
+              url: true
+            }
+          }
         ]
       },
       {
@@ -61,7 +66,12 @@ module.exports = {
               hmr: !production
             }
           },
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              url: true
+            }
+          },
           'less-loader'
         ]
       },
@@ -70,24 +80,15 @@ module.exports = {
         use: 'html-loader' 
       },
       {
-        test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url-loader?limit=10000&mimetype=application/font-woff"
-      },
-      {
-        test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url-loader?limit=10000&mimetype=application/font-woff"
-      },
-      {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url-loader?limit=10000&mimetype=application/octet-stream"
-      },
-      {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "file-loader"
-      },
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url-loader?limit=10000&mimetype=image/svg+xml"
+        test: /\.(woff|woff2|eot|ttf|otf|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: 'fonts/[name].[ext]',
+            publicPath: '../'
+          }
+        }
       }
     ]
   },
